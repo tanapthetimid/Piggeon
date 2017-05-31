@@ -8,18 +8,31 @@ import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 
 public class GameLoop{
+	/**
+	* Specifies operations to be done on the return GameObject from the update
+	* Method
+	*/
     public static final int OPERATION_REMOVE = -1;
     public static final int OPERATION_ADD = 1;
     //variables for width and height
     private static int canvasWidth;
     private static int canvasHeight;
 
-    //level oriented variables
+    /**
+    * the current working level
+    */
     private static Level level;
+    
+    //GameObject(s) that are processed and drawn
     private static HashSet<GameObject> gameObjects;
     
+    //specifies width of black border around the window
     private static int borderWidth;
 
+	/**
+	* initialises the current level and initialises
+	* 
+	*/
     public static void init(Level lv, int width, int height, int borderWidth){
         canvasWidth = width;
         canvasHeight = height;
@@ -69,6 +82,7 @@ public class GameLoop{
     }
     
     private static int currentTexture = -1;
+    
     private static void renderFrame(){
         glClear(GL_COLOR_BUFFER_BIT);
         glPushMatrix();
