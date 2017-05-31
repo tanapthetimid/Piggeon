@@ -15,10 +15,12 @@ public abstract class GameObject{
         this.width = width;
         this.height = height;
     }
-    
-    //returns an arraylist formatted as such: a positive or negative int followed by objects to operate on
-    //positive 1 means to add that game object -1 means to remove the game object
-    //example {1,object1,object2, -1, object3}
+    /**
+    * returns an arraylist formatted as such: a positive or
+    * negative int followed by objects to operate on
+    * positive 1 means to add that game object -1 means to remove the game object
+    * example {1,object1,object2, -1, object3}
+    */
     public abstract ArrayList<Object> update();
     
     //interface methods
@@ -35,16 +37,16 @@ public abstract class GameObject{
     //accessors
     public float getX(){return x;}
     public float getY(){return y;}
-    public int getIntX(){return (int)x;}//for rendering
-    public int getIntY(){return (int)y;}//for rendering
+    //(Depricated)public int getIntX(){return (int)x;}//for rendering
+    //(Depricated)public int getIntY(){return (int)y;}//for rendering
     public float getRawWidth(){return width;}
     public float getRawHeight(){return height;}
     public float getWidth(){return width * scaleX;}
     public float getHeight(){return height * scaleY;}
     public float getScaleX(){return scaleX;}
     public float getScaleY(){return scaleY;}
-    public int getIntWidth(){return (int)width;}//for rendering
-    public int getIntHeight(){return (int)height;}//for rendering
+    //(Depricated) public int getIntRawWidth(){return (int)width;}//for rendering
+    //(Depricated)public int getIntRawHeight(){return (int)height;}//for rendering
     public int getTexture(){return texture;}
     public float getRotation(){return rotation;}
     //rendering values need to be integer because of AWT's parameter

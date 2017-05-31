@@ -75,7 +75,7 @@ public class CollisionDetection{
 
         ArrayList<Integer> collisionDir = new ArrayList<>();
 
-        Set<Integer> keyset = (Set<Integer>) collisions.destage1ndingKeySet();
+        Set<Integer> keyset = (Set<Integer>) collisions.descendingKeySet();
 
         int x = 0;
         for(int key: keyset){

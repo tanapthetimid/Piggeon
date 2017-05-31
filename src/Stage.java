@@ -39,10 +39,8 @@ public abstract class Stage{
     /**
     * Removes gameobject. SHOULD NOT BE CALLED BY GAMEOBJECT
     */
-    public void removeGameObject(GameObject go){gameObjects.remove(go);}
-    
+     
     //accessors
     public HashSet<GameObject> getGameObjects(){return gameObjects;}
     public HashSet<GameObject> getCollidableObjects(){return collidableObjects;}
-    public HashSet<GameObject> getCubes(){return cubes;}
 }

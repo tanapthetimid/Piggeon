@@ -46,7 +46,6 @@ public class GameLoop{
         //initializes stage
         stage.init();
         gameObjects = stage.getGameObjects();
-        glMatrixMode(GL_MODELVIEW);
     }
     
     public static void stopLoop(){
@@ -100,6 +99,7 @@ public class GameLoop{
         glPushMatrix();
         
         for(GameObject go: gameObjects){
+        	/*
             if(go.isLine()){
                 glDisable(GL_TEXTURE_2D);
                 float[] start = go.getLineStart();
@@ -116,6 +116,7 @@ public class GameLoop{
                 glColor3f(1f,1f,1f);
                 glEnable(GL_TEXTURE_2D);
             }else{
+            	*/
                 int texture = go.getTexture();
                 if(texture != currentTexture || currentTexture == -1){
                     glBindTexture(GL_TEXTURE_2D, texture);
@@ -156,7 +157,7 @@ public class GameLoop{
                 if(Math.abs(rotation) > 1){
                     glPopMatrix();
                 }
-            }
+            //}
         }
         
         drawCrop();
