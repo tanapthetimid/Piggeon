@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.Set;
 import java.util.HashSet;
+
 public class CollisionDetection{
     public static final int NONE = 0;
     public static final int BOTTOM = 1;
@@ -74,7 +75,7 @@ public class CollisionDetection{
 
         ArrayList<Integer> collisionDir = new ArrayList<>();
 
-        Set<Integer> keyset = (Set<Integer>) collisions.descendingKeySet();
+        Set<Integer> keyset = (Set<Integer>) collisions.destage1ndingKeySet();
 
         int x = 0;
         for(int key: keyset){

@@ -6,25 +6,43 @@ import org.lwjgl.glfw.GLFWMouseButtonCallback;
 import static org.lwjgl.glfw.GLFW.*;
 import java.util.concurrent.atomic.*;
 
+/**
+* This class handles Inputs and various callbacks from GLFW
+* Other objects/classes can statically call methods in this class
+* to query user input. 
+* 
+* Time sensitive input must be handled individually.
+*/
+
 public class InputHandler{
     public static boolean[] keys = new boolean[65536];
 
     private static AtomicReference<Double> mouseX = new AtomicReference<>();
     private static AtomicReference<Double> mouseY = new AtomicReference<>();
     private static AtomicBoolean mouseDown = new AtomicBoolean();
-
+	
+	/**
+	* checks if the specified key is pressed
+	*
+	* @param keycode		- the Integer keycode representation of a key
+	* 
+	* @return 				- boolean; true = pressed; false = not pressed
+	*/
     public static boolean isKeyDown(int keycode){
         return keys[keycode];
     }
 
+	//returns the mouse X location
     public static int getMouseX(){
         return (int)(mouseX.get()+0.5);
     }
 
+	//returns the mouse Y location
     public static int getMouseY(){
         return (int)(mouseY.get()+0.5);
     }
-
+	
+	//mouse press check interfaces
     public static boolean isMouseDown(){
         return mouseDown.get();
     }

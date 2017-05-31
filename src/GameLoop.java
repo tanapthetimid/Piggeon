@@ -19,34 +19,46 @@ public class GameLoop{
     private static int canvasHeight;
 
     /**
-    * the current working level
+    * the current working stage
     */
-    private static Level level;
+    private static Stage stage;
     
     //GameObject(s) that are processed and drawn
     private static HashSet<GameObject> gameObjects;
     
     //specifies width of black border around the window
     private static int borderWidth;
-
+	
+	//manual stop gameloop request
+	private static boolean stopRequest = false;
+	
 	/**
-	* initialises the current level and initialises
-	* 
+	* initialises the current stage and initialises instance variables
+	* @param stage1 		- the current stage object
+	* @param width 		- width of window
+	* @param height 	- height of window
 	*/
-    public static void init(Level lv, int width, int height, int borderWidth){
+    public static void init(Stage stage1, int width, int height, int borderWidth){
         canvasWidth = width;
         canvasHeight = height;
-        level = lv;
+        stage = stage1;
         GameLoop.borderWidth = borderWidth;
-        //initializes level
-        level.init();
-        gameObjects = level.getGameObjects();
+        //initializes stage
+        stage.init();
+        gameObjects = stage.getGameObjects();
         glMatrixMode(GL_MODELVIEW);
     }
+    
+    public static void stopLoop(){
+    	stopRequest = true;
+    }
+    
 
-    //the main function of GameHandler
+    /**
+    * GameLoop
+    */
     public static void start(){
-        while(!glfwWindowShouldClose(Game.getWindowId())){
+        while(!glfwWindowShouldClose(Game.getWindowId()) && !stopRequest){
             //handles processing in here
             processUpdates();
             renderFrame();
