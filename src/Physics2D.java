@@ -1,5 +1,6 @@
 package src;
 
-public class Physics2D{
+public class Physics2D
+{
     
 }

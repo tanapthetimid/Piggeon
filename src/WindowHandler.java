@@ -10,7 +10,8 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.glfw.*;
 import java.nio.*;
 
-public class Game{
+public class WindowHandler
+{
     public static long window;
 
     /**
@@ -25,8 +26,10 @@ public class Game{
      * @param borderWidth   Width of black border around the game window - 0 for none
      */
     public static void init(String title, String cursorFile
-                            , int width, int height, int winOffsetX, int winOffsetY, int borderWidth){
-        if(!glfwInit()){
+                            , int width, int height, int winOffsetX, int winOffsetY, int borderWidth)
+    {
+        if(!glfwInit())
+        {
             System.err.println("GLFW initialization failed");
         }
         
@@ -37,7 +40,8 @@ public class Game{
         /*stores created window id*/
         window = glfwCreateWindow(width+borderWidth*2, height+borderWidth*2, title, NULL, NULL);
 
-        if(window == NULL){
+        if(window == NULL)
+        {
             System.err.println("Could not create window!");
         }
 
@@ -57,10 +61,6 @@ public class Game{
 
         GL.createCapabilities();
         
-        /*first clear*/
-        glClearColor(0.90f,0.90f,0.90f,1);
-        glOrtho(0,width+borderWidth, height+borderWidth,0,-1,1);
-        
         enableGlFlags();
         
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -70,18 +70,20 @@ public class Game{
         setCursorImage(cursorFile);
     }
     
-    private static void enableGlFlags(){
+    private static void enableGlFlags()
+    {
         glEnable(GL_BLEND);
-        glEnable(GL_TEXTURE_2D);
         glEnable(GL_LINE_SMOOTH) ;
     }
     
     /**
      * Sets cursor image to the image at location cursorFile
      */
-    private static void setCursorImage(String cursorFile){
-        if(cursorFile != null && !cursorFile.isEmpty()){
-            Object[] values = Image.loadImageToByteBuffer(cursorFile);
+    private static void setCursorImage(String cursorFile)
+    {
+        if(cursorFile != null && !cursorFile.isEmpty())
+        {
+            Object[] values = ImageUtils.loadImageToByteBuffer(cursorFile);
             ByteBuffer buffer = (ByteBuffer) values[0];
             GLFWImage cursorImage = GLFWImage.create();
             cursorImage.width((int)values[1]);
@@ -98,7 +100,8 @@ public class Game{
     /**
      * Returns the ID of the main window.
      */
-    public static long getWindowId(){
+    public static long getWindowId()
+    {
         return window;
     }
 }

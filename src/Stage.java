@@ -3,44 +3,63 @@ package src;
 import java.util.HashSet;
 
 /**
-* Stage abstract class.
-* This class represents a Stage that can be
-* initiated and saved by the **TO BE IMPLEMENTED** save system.
-* Stage holds a HashSet of GameObjects inside the Stage.
-*/
-public abstract class Stage{
+ * Stage abstract class.
+ * This class represents a Stage that can be
+ * initiated and saved by the **TO BE IMPLEMENTED** save system.
+ * Stage holds a HashSet of GameObjects inside the Stage.
+ */
+public abstract class Stage
+{
+	//stores level's GameObject(s)
+	private GameObjectStorage goStorage;
+
+	//stage size
+	private int stageWidth;
+	private int stageHeight;
+
+	public Stage(width, height)
+	{
+		stageWidth = width;
+		stageHeight = height;
+	}
 
 	/**
-	* Implemented by every stage. This method is called by GameLoop
-	* to initiate every stage.
-	*
-	* - create objects and add them to stage
-	* - sets the objects to their starting position
-	* (optional) - restore saved state
-	*/
+	 * Implemented by every stage. This method is called by GameLoop
+	 * to initiate every stage.
+	 *
+	 * - create objects and add them to stage
+	 * - sets the objects to their starting position
+	 * (optional) - restore saved state
+	 */
     public abstract void init();
 
-	//HashSet storing EVERY game object on stage
-    private HashSet<GameObject> gameObjects = new HashSet<>();
-    
-    //Stores only collidable objects for processing collisions
-    private HashSet<GameObject> collidableObjects = new HashSet<>();
-        
-    /*interface methods*/
-    //modifiers
-    public void addGameObject(GameObject go){gameObjects.add(go);}
-    
-    //adds the object to collidable Hashset AND gameObjects hashset
-    public void addCollidableObject(GameObject go){
-        collidableObjects.add(go);
-        addGameObject(go);
-    }
-    
-    /**
-    * Removes gameobject. SHOULD NOT BE CALLED BY GAMEOBJECT
-    */
-     
-    //accessors
-    public HashSet<GameObject> getGameObjects(){return gameObjects;}
-    public HashSet<GameObject> getCollidableObjects(){return collidableObjects;}
+    //returns GameObjectStorage of this stage
+	public GameObjectStorage getGameObjectStorage()
+	{
+		return goStorage;
+	}
+
+	//returns the width of stage
+	public int getStageWidth()
+	{
+		return stageWidth;
+	}
+
+	//returns height of stage
+	public int getStageHeight()
+	{
+		return stageHeight;
+	}
+
+	//changes stage width
+	public int setStageWidth(int width)
+	{
+		stageWidth = width;
+	}
+
+	//changes stage height
+	public int setStageHeight(int height)
+	{
+		stageHeight = height;
+	}
 }

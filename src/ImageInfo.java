@@ -14,11 +14,11 @@ package src;
 public class ImageInfo
 {
     /**
-    * OpenGL stores texture ID statically.
-    * this variable is used to refer to
-    * the ID of the loaded texture stored
-    * by OpenGL.
-    */
+     * OpenGL stores texture ID statically.
+     * this variable is used to refer to
+     * the ID of the loaded texture stored
+     * by OpenGL.
+     */
    
     /** Value - {@value}, OpenGL texture ID of image*/
     public int id;
