@@ -89,7 +89,7 @@ public class GameLoop
         stage.init();
 
         /*Deprecated ==============*/
-        gameObjects = stage.getGameObjects();
+        //gameObjects = stage.getGameObjects();
         /*=========================*/
     }
     
@@ -154,7 +154,8 @@ public class GameLoop
     }
     
     private int currentTexture = -1;
-    
+    int imageID;
+    int vaoID;
     private void renderFrame()
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -290,5 +291,6 @@ public class GameLoop
     {
     	int vaoID = glGenVertexArrays();
     	glBindVertexArray(vaoID);
+    	return 0;
     }
 }

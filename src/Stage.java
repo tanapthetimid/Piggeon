@@ -17,7 +17,7 @@ public abstract class Stage
 	private int stageWidth;
 	private int stageHeight;
 
-	public Stage(width, height)
+	public Stage(int width, int height)
 	{
 		stageWidth = width;
 		stageHeight = height;
@@ -52,13 +52,13 @@ public abstract class Stage
 	}
 
 	//changes stage width
-	public int setStageWidth(int width)
+	public void setStageWidth(int width)
 	{
 		stageWidth = width;
 	}
 
 	//changes stage height
-	public int setStageHeight(int height)
+	public void setStageHeight(int height)
 	{
 		stageHeight = height;
 	}

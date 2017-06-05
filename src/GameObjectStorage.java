@@ -1,6 +1,7 @@
 package src;
 
 import java.util.HashSet;
+import java.util.HashMap;
 
 /**
  * This class is used to store and arrange GameObjects by their
@@ -14,7 +15,7 @@ public class GameObjectStorage
 
 	/*stores the sets of objects, arranged by the String representation
 	  a string representation of the class name of each object.*/
-	private HashMap<String, HashSet<GameObject>> storage = new HashSet<>();
+	private HashMap<String, HashSet<GameObject>> storage = new HashMap<>();
 
 	/**
 	 * Adds GameObject to the storage. Creates a new Set for the
@@ -23,13 +24,13 @@ public class GameObjectStorage
 	public void addGameObject(GameObject gameObject)
 	{
 		String className = gameObject.getClass().getName();
-		HashSet objSet = storage.get(className);
+		HashSet<GameObject> objSet = storage.get(className);
 
 		/*if the HashSet of this particular class doesn't
 		  exist yet, create a HashSet and put it in the Map*/
 		if(objSet == null)
 		{
-			objSet = new HashSet<GameObject>;
+			objSet = new HashSet<GameObject>();
 			storage.put(className, objSet);
 		}
 		//adds gameObject to the HashSet
@@ -43,7 +44,7 @@ public class GameObjectStorage
 	public void removeGameObject(GameObject gameObject)
 	{
 		String className = gameObject.getClass().getName();
-		HashSet objSet = storage.get(className);
+		HashSet<GameObject> objSet = storage.get(className);
 		if(objSet != null)
 		{
 			objSet.remove(gameObject);
@@ -63,7 +64,7 @@ public class GameObjectStorage
 	 */
 	public GameObject[] getGameObjectsByClassName(String className)
 	{
-		HashSet objSet = storage.get(className);
+		HashSet<GameObject> objSet = storage.get(className);
 		if(objSet != null)
 		{
 			GameObject[] gos = new GameObject[objSet.size()];
@@ -85,9 +86,10 @@ public class GameObjectStorage
 	{
 		GameObject[] gameObjects = new GameObject[size];
 		int x = 0;
-		for(HashSet set: storage.values())
+		for(HashSet<GameObject> set: storage.values())
 		{
-			for(GameObject go: set){
+			for(GameObject go: set)
+			{
 				gameObjects[x] = go;
 				x++;
 			}
