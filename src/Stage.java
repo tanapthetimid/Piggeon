@@ -1,6 +1,3 @@
-package src;
-
-import java.util.HashSet;
 
 /**
  * Stage abstract class.
@@ -10,8 +7,9 @@ import java.util.HashSet;
  */
 public abstract class Stage
 {
-	//stores level's GameObject(s)
-	private GameObjectStorage goStorage;
+	//stores level's GameObject(s) in n-tree
+    //root node of the object's n-tree
+    private Node rootNode;
 
 	//stage size
 	private int stageWidth;
@@ -33,11 +31,10 @@ public abstract class Stage
 	 */
     public abstract void init();
 
-    //returns GameObjectStorage of this stage
-	public GameObjectStorage getGameObjectStorage()
-	{
-		return goStorage;
-	}
+    public Node getRootNode()
+    {
+        return rootNode;
+    }
 
 	//returns the width of stage
 	public int getStageWidth()

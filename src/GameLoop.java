@@ -1,4 +1,4 @@
-package src;
+
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -203,7 +203,7 @@ public class GameLoop
         	1,0,0,0,
         	0,1,0,0,
         	0,0,1,0,
-        	0,0,0,1
+       		0,0,0,1
         };
 
         int rloc = glGetUniformLocation(shaderProgram.getID(), ROTATE);
@@ -236,7 +236,7 @@ public class GameLoop
 		    -0.5f, -0.5f,
 		     0.5f, -0.5f,
 		    -0.5f,  0.5f,
-		     0.5f, -0.5f,
+		     0.5f, -0.5f, 
 		     0.5f,  0.5f
         };
 

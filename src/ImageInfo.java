@@ -1,5 +1,3 @@
-package src;
-
 
 /**
  * ImageInfo class is used to store
