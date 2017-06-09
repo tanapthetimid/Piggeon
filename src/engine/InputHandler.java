@@ -1,4 +1,4 @@
-
+package engine;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWCursorPosCallback;

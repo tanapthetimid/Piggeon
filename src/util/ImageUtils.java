@@ -1,15 +1,13 @@
+package util;
 
-
-import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.system.MemoryUtil.*;
 import static org.lwjgl.stb.STBImage.*;
 
+import engine.ImageInfo;
 import org.lwjgl.system.MemoryStack;
-import org.lwjgl.opengl.*;
-import org.lwjgl.glfw.*;
+
 import java.nio.*;
 
 import java.util.HashMap;
@@ -25,7 +23,7 @@ import java.util.HashMap;
 public class ImageUtils
 {
 	//HashMap for caching texture ID -- load a texture only once
-	private static HashMap<String, ImageInfo> loadedTextures 
+	private static HashMap<String, ImageInfo> loadedTextures
 										= new HashMap<String, ImageInfo>();
 
     /**

@@ -1,4 +1,6 @@
+package util;
 
+import engine.ShaderProgram;
 
 import java.io.*;
 
