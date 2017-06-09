@@ -200,7 +200,7 @@ public class GameLoop
 
         glDrawArrays(GL_TRIANGLES, 0, 6);
         //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
-        glBindVertexArray(0);
+
         shaderProgram.unbind();
 
         glfwSwapBuffers(WindowHandler.getWindowId());
@@ -221,12 +221,12 @@ public class GameLoop
 
         float[] vertices = new float[]
                 {
-                        -0.5f, 0.5f,
+                        -0.5f,  0.5f,
                         -0.5f, -0.5f,
-                        0.5f, -0.5f,
-                        -0.5f, 0.5f,
-                        0.5f, -0.5f,
-                        0.5f, 0.5f
+                         0.5f, -0.5f,
+                        -0.5f,  0.5f,
+                         0.5f, -0.5f,
+                         0.5f,  0.5f
                 };
 
         float[] texCoords = new float[]
@@ -272,8 +272,6 @@ public class GameLoop
 */
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
-
-        glBindVertexArray(0);
     }
 
     public static int createVertexArrayObject()
