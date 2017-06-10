@@ -1,10 +1,14 @@
 package util;
 
 /**
- * FloatMatrixUtils
+ * FloatMatrixUtils is used to facilitate matrix manipulations
  */
 public class FloatMatrixUtils
 {
+    /**
+     * creates an identy 4 by 4 matrix
+     * @return  identity 4x4 matrix
+     */
     public static float[] createIdentity4x4()
     {
         return new float[]{1f,0f,0f,0f,
@@ -13,6 +17,13 @@ public class FloatMatrixUtils
                            0f,0f,0f,1f};
     }
 
+    /**
+     * multiplies two square matrices (same width and height)
+     * @param mat1          first matrix
+     * @param mat2          second matrix
+     * @param sidelength    side lengths of both matrix
+     * @return              resulting matrix of multiplication
+     */
     public static float[] multiplySquares(float[] mat1, float[] mat2, int sidelength)
     {
         float[] newMat = new float[sidelength*sidelength];
@@ -31,6 +42,12 @@ public class FloatMatrixUtils
         return newMat;
     }
 
+    /**
+     * creates a new 4 by 4 matrix for the scale provided
+     * @param scaleX    horizontal scale
+     * @param scaleY    vertical scale
+     * @return          scaling matrix
+     */
     public static float[] scaleTransformMatrix(float scaleX, float scaleY)
     {
         return new float[]{scaleX,  0f    ,     0f,     0f,
@@ -39,6 +56,12 @@ public class FloatMatrixUtils
                            0f    ,  0f    ,     0f,     1f,};
     }
 
+    /**
+     * creates a new 4x4 matrix for the translation provided
+     * @param tX    translation in x axis
+     * @param tY    translation in y axis
+     * @return      translation matrix
+     */
     public static float[] translateTransformMatrix(float tX, float tY)
     {
         return new float[]{1f    ,  0f    ,     0f,     tX,
@@ -47,8 +70,16 @@ public class FloatMatrixUtils
                            0f    ,  0f    ,     0f,     1f,};
     }
 
+    /*rounding precision of the rotation matrix since java FLOAT may
+     *have rounding error*/
     private static final float ROUNDING_PRECISION = 10000000f;
 
+    /**
+     * creates a 4x4 rotation matrix which rotates around Z axis
+     * (Z axis rotation is the only one applicable in 2D)
+     * @param angleInDegrees    The angle in degrees measure
+     * @return                  rotation matrix
+     */
     public static float[] rotateTransformMatrix(float angleInDegrees)
     {
         float sinX = (float) Math.round(Math.sin(angleInDegrees / 180 * Math.PI)*ROUNDING_PRECISION)/ROUNDING_PRECISION;

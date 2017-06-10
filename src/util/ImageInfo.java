@@ -1,4 +1,4 @@
-package engine;
+package util;
 
 /**
  * ImageInfo class is used to store

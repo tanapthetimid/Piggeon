@@ -7,10 +7,14 @@ public class Node
     private float x;
     private float y;
     private float rotation;
-    private float scaleX;
-    private float scaleY;
-    private String nodeName;
-    private ArrayList<Node> children;
+    private float scaleX = 1;
+    private float scaleY = 1;
+
+    //name used to identify nodes. can be useful when searching for a node
+    private String nodeName = "";
+
+    //children node
+    private ArrayList<Node> children = new ArrayList<>();
 
     public Node()
     {
@@ -87,7 +91,7 @@ public class Node
         return children;
     }
 
-    public void addChild(Node child)
+    public void attachChild(Node child)
     {
         children.add(child);
     }

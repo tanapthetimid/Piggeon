@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.stb.STBImage.*;
 
-import engine.ImageInfo;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.*;
@@ -23,8 +22,7 @@ import java.util.HashMap;
 public class ImageUtils
 {
 	//HashMap for caching texture ID -- load a texture only once
-	private static HashMap<String, ImageInfo> loadedTextures
-										= new HashMap<String, ImageInfo>();
+	private static HashMap<String, ImageInfo> loadedTextures = new HashMap<>();
 
     /**
      * Loads image from specified path. Returns an ImageInfo

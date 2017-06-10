@@ -1,0 +1,135 @@
+
+    private int currentTexture = -1;
+    int imageID;
+    int vaoID;
+
+    private void renderFrame()
+    {
+        glClear(GL_COLOR_BUFFER_BIT);
+        /*
+        //to be implemented
+        for(GameObject go: gameObjects)
+        {
+
+        }
+        */
+
+        shaderProgram.bind();
+
+        GL13.glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, imageID);
+
+        glBindVertexArray(vaoID);
+
+        //transformation matrices
+        float[] translate = new float[]
+                {
+                        1, 0, 0, 0.5f,
+                        0, 1, 0, 0.5f,
+                        0, 0, 1, 0f,
+                        0, 0, 0, 1
+                };
+
+        int tloc = glGetUniformLocation(shaderProgram.getID(), TRANSLATE);
+        glUniformMatrix4fv(tloc, false, translate);
+
+        float[] scale = new float[]
+                {
+                        2, 0, 0, 0,
+                        0, 2, 0, 0,
+                        0, 0, 2, 0,
+                        0, 0, 0, 1
+                };
+
+        int sloc = glGetUniformLocation(shaderProgram.getID(), SCALE);
+        glUniformMatrix4fv(sloc, false, scale);
+
+        float[] rotate = new float[]
+                {
+                        1, 0, 0, 0,
+                        0, 1, 0, 0,
+                        0, 0, 1, 0,
+                        0, 0, 0, 1
+                };
+
+        int rloc = glGetUniformLocation(shaderProgram.getID(), ROTATE);
+        glUniformMatrix4fv(rloc, false, rotate);
+
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_SHORT, 0);
+
+        shaderProgram.unbind();
+
+        glfwSwapBuffers(WindowHandler.getWindowId());
+    }
+
+
+    private void fakeinit()
+    {
+        ImageInfo info = ImageUtils.loadImage("test/res/scorched_earth_desktop.jpg");
+        imageID = info.id;
+
+        vaoID = glGenVertexArrays();
+        glBindVertexArray(vaoID);
+
+        float[] vertices = new float[]
+                {
+                        -0.5f, 0.5f,
+                        -0.5f, -0.5f,
+                        0.5f, -0.5f,
+                        -0.5f, 0.5f,
+                        0.5f, -0.5f,
+                        0.5f, 0.5f
+                };
+
+        float[] texCoords = new float[]
+                {
+                        0.0f, 0.0f,
+                        0.0f, 1.0f,
+                        1.0f, 1.0f,
+                        0.0f, 0.0f,
+                        1.0f, 1.0f,
+                        1.0f, 0.0f
+                };
+/*
+        short[] indices = new short[]
+        {
+            0, 1, 2,  // The indices for the left triangle
+            1, 2, 3   // The indices for the right triangle
+        };
+*/
+        FloatBuffer verticesBuffer = BufferUtils.createFloatBuffer(vertices.length);
+        verticesBuffer.put(vertices).flip();
+
+        int vboVertID = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, vboVertID);
+        glBufferData(GL_ARRAY_BUFFER, verticesBuffer, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(0, 2, GL_FLOAT, false, 0, 0);
+
+        FloatBuffer texCoordsBuffer = BufferUtils.createFloatBuffer(texCoords.length);
+        texCoordsBuffer.put(texCoords).flip();
+
+        int vboTexCoordsID = glGenBuffers();
+        glBindBuffer(GL_ARRAY_BUFFER, vboTexCoordsID);
+        glBufferData(GL_ARRAY_BUFFER, texCoordsBuffer, GL_STATIC_DRAW);
+
+        glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
+/*
+        ShortBuffer indicesBuffer = BufferUtils.createShortBuffer(indices.length);
+        indicesBuffer.put(indices).flip();
+
+        int eboID = glGenBuffers();
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, eboID);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, indicesBuffer, GL_STATIC_DRAW);
+*/
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
+    }
+
+    public static int createVertexArrayObject()
+    {
+        int vaoID = glGenVertexArrays();
+        glBindVertexArray(vaoID);
+        return 0;
+    }

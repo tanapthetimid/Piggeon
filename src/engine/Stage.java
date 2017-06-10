@@ -19,14 +19,8 @@ public abstract class Stage
     //Stage's camera
     private Camera camera;
 
-	//stage size
-	private int stageWidth;
-	private int stageHeight;
-
-	public Stage(int width, int height)
+	public Stage()
 	{
-		stageWidth = width;
-		stageHeight = height;
 		//instantiate var
 		rootNode = new Node();
 		updateList = new LinkedList<>();
@@ -78,28 +72,4 @@ public abstract class Stage
     {
         return updateList.toArray(new GameObject[updateList.size()]);
     }
-
-	//returns the width of stage
-	public int getStageWidth()
-	{
-		return stageWidth;
-	}
-
-	//returns height of stage
-	public int getStageHeight()
-	{
-		return stageHeight;
-	}
-
-	//changes stage width
-	public void setStageWidth(int width)
-	{
-		stageWidth = width;
-	}
-
-	//changes stage height
-	public void setStageHeight(int height)
-	{
-		stageHeight = height;
-	}
 }

@@ -1,64 +1,51 @@
 package engine;
 
+/**
+ * The Camera class is used to update the Node object
+ * bounded to camera.
+ * Usage: bind a node to camera. Transform camera's node to
+ * simulate camera movement.
+ */
 public class Camera
 {
-	private float x;
-	private float y;
-	private float size;
+	//the node bounded to this camera
 	private Node cameraNode;
 
-	public void update()
+	//empty constructor
+	public Camera()
 	{
-		//default camera has empty update method
+		//empty constructor
 	}
 
+	//constructor with node
 	public Camera(Node cameraNode)
 	{
 		this.cameraNode = cameraNode;
 	}
 
-	public Camera(float x, float y, float size)
+	/**
+	 * update interface called by gameLoop
+	 */
+	public void update()
 	{
-		this.x = x;
-		this.y = y;
-		this.size = size;
+		onUpdate(cameraNode);
 	}
 
-	public float getX()
+    /**
+     * to be implemented by user. This method should update
+     * camera's Node to reflect camera movement
+     *
+     * @param cameraNode the node bounded to camera
+     */
+	private void onUpdate(Node cameraNode)
 	{
-		return x;
+		//empty camera update
 	}
 
-	public float getY()
-	{
-		return y;
-	}
-
-	public float getSize()
-	{
-		return size;
-	}
-
-	public void setX(float x)
-	{
-		this.x = x;
-	}
-
-	public void setY(float y)
-	{
-		this.y = y;
-	}
-
-	public void setSize(float size)
-	{
-		this.size = size;
-	}
-
-	public Node getNode()
-	{
-		return cameraNode;
-	}
-
+    /**
+     * binds the Node object to camera
+     * @param cameraNode
+     */
 	public void bindNode(Node cameraNode)
 	{
 		this.cameraNode = cameraNode;
