@@ -10,7 +10,7 @@ public class MyStage extends Stage
     {
         for(int x = 0; x < 10; x++)
         {
-            GameObject gogo = new MyGameObject("game_engine_design_class.png");
+            GameObject gogo = new MyGameObject("test.png");
             rootNode.attachChild(gogo);
             updateList.add(gogo);
             gogo.setX(gogo.getWidth() / 2);
