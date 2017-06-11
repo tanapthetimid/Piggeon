@@ -7,7 +7,7 @@ extensible framework (the pigeon) with which beginner programmers may utilize to
 Swing of JavaFX libraries.
 
 # Why make this engine?
-There already exists multitudes of good, opensource game engines for Java, but the majority of those libraries 
+There already exist multitudes of good, opensource game engines for Java, but the majority of those libraries 
 can be extremely daunting for beginners. This engine does not require any knowledge of game loop mechanism, OpenGL calls,
 matrix manipulation, image loading, or other scary stuff. It provides a model for creating GameObject(s) and Stage(s) that
 are simple, yet extensible.
