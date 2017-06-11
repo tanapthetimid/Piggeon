@@ -1,7 +1,7 @@
 # Piggeon
-Piggeon Game Engine - Hiding a pig behind a pigeon.
+Piggeon 2D Game Engine - Hiding a pig behind a pigeon.
 
-A simple, easy to use, beginner friendly, object oriented game engine written entirely in Java. 
+A simple, easy to use, beginner friendly, object oriented, two dimensional game engine written entirely in Java. 
 The design of this engine aims to hide away the ugliness of OpenGL and game loop implementation (the pig) behind a simple yet 
 extensible framework (the pigeon) with which beginner programmers may utilize to construct games without relying on the 
 Swing of JavaFX libraries.
