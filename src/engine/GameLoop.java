@@ -21,11 +21,8 @@ package engine;
 
 import util.*;
 
-import java.nio.FloatBuffer;
-
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -33,36 +30,34 @@ import static org.lwjgl.opengl.GL30.*;
 import static util.FloatMatrixUtils.multiplySquares;
 
 import org.lwjgl.opengl.GL13;
-import org.lwjgl.BufferUtils;
 
-
-public class GameLoop
+public class  GameLoop
 {
     /**
      * Specifies operations to be done on the return GameObject from the update
      * Method
      */
-    public final int OPERATION_REMOVE = -1;
-    public final int OPERATION_ADD = 1;
+    public static final int OPERATION_REMOVE = -1;
+    public static final int OPERATION_ADD = 1;
 
     //names for translate, scale, and rotate mat4 in shader
-    private final String TRANSFORMATION_MATRIX = "transformation";
+    private static final String TRANSFORMATION_MATRIX = "transformation";
 
     //variables for width and height
-    private float canvasWidth;
-    private float canvasHeight;
+    private static float canvasWidth;
+    private static float canvasHeight;
 
     //the current working stage
-    private Stage stage;
+    private static Stage stage;
 
     //specifies width of black border around the window
-    private int borderWidth;
+    private static int borderWidth;
 
     //manual stop gameloop request
-    private boolean stopRequest = false;
+    private static boolean stopRequest = false;
 
     //OpenGL shader program ID
-    private ShaderProgram shaderProgram;
+    private static ShaderProgram shaderProgram;
 
     /**
      * initializes the game loop engine and initializes shader program
@@ -74,7 +69,7 @@ public class GameLoop
      * @param winOffsetY    Window offset from the top of the screen.
      * @param borderWidth   Width of border around game window
      */
-    public void init(String title, String cursorFile
+    public static void init(String title, String cursorFile
             , int canvasWidth, int canvasHeight
             , int winOffsetX, int winOffsetY
             , int borderWidth)
@@ -87,9 +82,9 @@ public class GameLoop
         );
 
         //initializes variables
-        this.canvasWidth = canvasWidth;
-        this.canvasHeight = canvasHeight;
-        this.borderWidth = borderWidth;
+        GameLoop.canvasWidth = canvasWidth;
+        GameLoop.canvasHeight = canvasHeight;
+        GameLoop.borderWidth = borderWidth;
 
         //initializes shader program
         shaderProgram = new ShaderProgram();
@@ -102,9 +97,9 @@ public class GameLoop
      * starts specified stage
      * @param stage
      */
-    public void startStage(Stage stage)
+    public static void startStage(Stage stage)
     {
-        this.stage = stage;
+        GameLoop.stage = stage;
         run();
     }
 
@@ -113,14 +108,14 @@ public class GameLoop
      * User should handle stage saving BEFORE this method
      * is called.
      */
-    public void stopLoop()
+    public static void stopLoop()
     {
         stopRequest = true;
     }
 
 
     //game loop
-    private void run()
+    private static void run()
     {
         //DEBUG
         int count = 0;
@@ -149,7 +144,7 @@ public class GameLoop
         glfwTerminate();
     }
 
-    private void processUpdates()
+    private static void processUpdates()
     {
         glfwPollEvents();
 
@@ -165,7 +160,7 @@ public class GameLoop
     }
 
     //renders all game objects attached to root node
-    private void render()
+    private static void render()
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
@@ -186,7 +181,7 @@ public class GameLoop
     }
 
     //recursively render game objects and nodes
-    private void renderNode(Node node, float[] transformMat4fv)
+    private static void renderNode(Node node, float[] transformMat4fv)
     {
         //converts transformations into matrices
         float[] scale = FloatMatrixUtils.scaleTransformMatrix(node.getScaleX(), node.getScaleY());
@@ -209,7 +204,7 @@ public class GameLoop
         }
     }
 
-    private void renderGameObject(GameObject gameObject, float[] transformMat4fv)
+    private static void renderGameObject(GameObject gameObject, float[] transformMat4fv)
     {
         //binds game object's texture and vertex arrays object
         GL13.glActiveTexture(GL_TEXTURE0);

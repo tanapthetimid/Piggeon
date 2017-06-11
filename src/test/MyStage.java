@@ -27,16 +27,16 @@ public class MyStage extends Stage
 {
     public Camera initStage(Node rootNode, LinkedList<GameObject> updateList)
     {
-        for(int x = 0; x < 10; x++)
+        for(int x = 0; x < 100; x++)
         {
             GameObject gogo = new MyGameObject("test.png");
-            rootNode.attachChild(gogo);
-            updateList.add(gogo);
+            gogo.setScaleX(0.1f);
+            gogo.setScaleY(0.1f);
             gogo.setX(gogo.getWidth() / 2);
             gogo.setY(gogo.getHeight() / 2);
-            gogo.setY(gogo.getHeight() / 2);
-            gogo.setScaleX(0.2f);
-            gogo.setScaleY(0.2f);
+
+            updateList.add(gogo);
+            rootNode.attachChild(gogo);
         }
         return new Camera(rootNode);
     }
