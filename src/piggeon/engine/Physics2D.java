@@ -17,22 +17,9 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package test;
+package piggeon.engine;
 
-import engine.*;
-
-/**
- * Main test class
- */
-public class Main
+public class Physics2D
 {
-    public static void main(String[] args)
-    {
-        GameLoop.init("test", null
-                , 500,500
-                ,50,50,0);
-
-        MyStage stage = new MyStage();
-        GameLoop.startStage(stage);
-    }
+    
 }

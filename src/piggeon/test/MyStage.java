@@ -17,9 +17,9 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package test;
+package piggeon.test;
 
-import engine.*;
+import piggeon.engine.*;
 
 import java.util.LinkedList;
 

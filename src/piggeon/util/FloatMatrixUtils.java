@@ -17,7 +17,7 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package piggeon.util;
 
 /**
  * FloatMatrixUtils is used to facilitate matrix manipulations

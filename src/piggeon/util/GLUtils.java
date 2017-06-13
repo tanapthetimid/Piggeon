@@ -17,8 +17,7 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
-import engine.*;
+package piggeon.util;
 
 import java.nio.FloatBuffer;
 import java.util.HashMap;

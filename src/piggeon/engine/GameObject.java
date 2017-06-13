@@ -17,11 +17,10 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
-import util.*;
+import piggeon.util.*;
 
-import java.util.ArrayList;
 public abstract class GameObject extends Node
 {
     private int textureID;

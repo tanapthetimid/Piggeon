@@ -17,42 +17,43 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package piggeon.test;
 
-import engine.ShaderProgram;
+import piggeon.engine.*;
 
-import java.io.*;
-
-/**
-* Utility class for loading files
-*/
-public class FileUtils
+public class MyGameObject extends GameObject
 {
-	public static String readStringFromFile(String filename)
-	{
-		StringBuilder source = new StringBuilder();
-		try
-		{
-			BufferedReader reader 
-					= new BufferedReader(
-							new InputStreamReader(
-								ShaderProgram.class
-											 .getClassLoader()
-											 .getResourceAsStream(filename)));
-			String line;
-			while((line = reader.readLine()) != null)
-			{
-				source.append(line).append("\n");
-			}
+    public MyGameObject(String texturePath)
+    {
+        super(new String[]{texturePath});
+        dx = 10;
+        dy = 10;
+    }
 
-			reader.close();
-		}
-		catch(Exception e)
-		{
-			System.err.println("Err loading file: " + filename);
-			e.printStackTrace();
-		}
+    int dx;
+    int dy;
 
-		return source.toString();
-	}
+    @Override
+    public void update(Stage stage)
+    {
+        if(getX() > 500)
+        {
+            dx =-(int)( Math.random() * 20) - 1;
+        }
+        else if(getX() < 0)
+        {
+            dx =(int)( Math.random() * 20) + 1;
+        }
+
+        if(getY() > 500)
+        {
+            dy =-(int)( Math.random() * 20) - 1;
+        }
+        else if(getY() < 0)
+        {
+            dy =(int)( Math.random() * 20) + 1;
+        }
+        setX(getX() + dx);
+        setY(getY() + dy);
+    }
 }

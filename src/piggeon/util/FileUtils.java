@@ -17,37 +17,42 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package piggeon.util;
+
+import piggeon.engine.ShaderProgram;
+
+import java.io.*;
 
 /**
- * ImageInfo class is used to store
- * information related to an image loaded
- * by the Image class.
- * 
- * Stores
- *    -Opengl: texture id
- *    -Height
- *    -Width
- */
-public class ImageInfo
+* Utility class for loading files
+*/
+public class FileUtils
 {
-    /**
-     * OpenGL stores texture ID statically.
-     * this variable is used to refer to
-     * the ID of the loaded texture stored
-     * by OpenGL.
-     */
-   
-    /** Value - {@value}, OpenGL texture ID of image*/
-    public int id;
-    
-    public int width;
-    public int height;
-    
-    public ImageInfo(int id, int width, int height)
-    {
-        this.id = id;
-        this.width = width;
-        this.height = height;
-    }
+	public static String readStringFromFile(String filename)
+	{
+		StringBuilder source = new StringBuilder();
+		try
+		{
+			BufferedReader reader 
+					= new BufferedReader(
+							new InputStreamReader(
+								ShaderProgram.class
+											 .getClassLoader()
+											 .getResourceAsStream(filename)));
+			String line;
+			while((line = reader.readLine()) != null)
+			{
+				source.append(line).append("\n");
+			}
+
+			reader.close();
+		}
+		catch(Exception e)
+		{
+			System.err.println("Err loading file: " + filename);
+			e.printStackTrace();
+		}
+
+		return source.toString();
+	}
 }

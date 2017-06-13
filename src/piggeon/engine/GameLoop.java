@@ -17,9 +17,9 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
-import util.*;
+import piggeon.util.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -27,7 +27,7 @@ import static org.lwjgl.opengl.GL13.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
 
-import static util.FloatMatrixUtils.multiplySquares;
+import static piggeon.util.FloatMatrixUtils.multiplySquares;
 
 import org.lwjgl.opengl.GL13;
 
@@ -40,7 +40,7 @@ public class  GameLoop
     public static final int OPERATION_REMOVE = -1;
     public static final int OPERATION_ADD = 1;
 
-    //names for translate, scale, and rotate mat4 in shader
+    //names for translate, scale, and rotate mat4 in piggeon.shader
     private static final String TRANSFORMATION_MATRIX = "transformation";
 
     //variables for width and height
@@ -56,11 +56,11 @@ public class  GameLoop
     //manual stop gameloop request
     private static boolean stopRequest = false;
 
-    //OpenGL shader program ID
+    //OpenGL piggeon.shader program ID
     private static ShaderProgram shaderProgram;
 
     /**
-     * initializes the game loop engine and initializes shader program
+     * initializes the game loop piggeon.engine and initializes piggeon.shader program
      * @param title         Window title
      * @param cursorFile    File for cursor's image. Null for default cursor.
      * @param canvasWidth   Window width;
@@ -86,10 +86,10 @@ public class  GameLoop
         GameLoop.canvasHeight = canvasHeight;
         GameLoop.borderWidth = borderWidth;
 
-        //initializes shader program
+        //initializes piggeon.shader program
         shaderProgram = new ShaderProgram();
-        shaderProgram.attachVertexShader("shader/vertex_shader/shader.vs");
-        shaderProgram.attachFragmentShader("shader/fragment_shader/shader.fs");
+        shaderProgram.attachVertexShader("piggeon/shader/vertex_shader/shader.vs");
+        shaderProgram.attachFragmentShader("piggeon/shader/fragment_shader/shader.fs");
         shaderProgram.link();
     }
 
@@ -164,7 +164,7 @@ public class  GameLoop
     {
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //bind shader program
+        //bind piggeon.shader program
         shaderProgram.bind();
 
         /*normalizing transformation, which is applied LAST by property

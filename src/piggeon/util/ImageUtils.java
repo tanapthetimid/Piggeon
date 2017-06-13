@@ -17,7 +17,7 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package util;
+package piggeon.util;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
@@ -35,7 +35,7 @@ import java.util.HashMap;
  * into a texture stored statically by OpenGL.
  * 
  * This texture can be retrieved later by the
- * engine during drawing using the ID stored by
+ * piggeon.engine during drawing using the ID stored by
  * each GameObject
  */
 public class ImageUtils

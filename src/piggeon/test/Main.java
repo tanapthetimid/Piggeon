@@ -17,45 +17,22 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package test;
+package piggeon.test;
 
-import engine.*;
+import piggeon.engine.*;
 
-import java.util.ArrayList;
-
-public class MyGameObject extends GameObject
+/**
+ * Main piggeon.test class
+ */
+public class Main
 {
-    public MyGameObject(String texturePath)
+    public static void main(String[] args)
     {
-        super(new String[]{texturePath});
-        dx = 10;
-        dy = 10;
-    }
+        GameLoop.init("piggeon/test", null
+                , 500,500
+                ,50,50,0);
 
-    int dx;
-    int dy;
-
-    @Override
-    public void update(Stage stage)
-    {
-        if(getX() > 500)
-        {
-            dx =-(int)( Math.random() * 20) - 1;
-        }
-        else if(getX() < 0)
-        {
-            dx =(int)( Math.random() * 20) + 1;
-        }
-
-        if(getY() > 500)
-        {
-            dy =-(int)( Math.random() * 20) - 1;
-        }
-        else if(getY() < 0)
-        {
-            dy =(int)( Math.random() * 20) + 1;
-        }
-        setX(getX() + dx);
-        setY(getY() + dy);
+        MyStage stage = new MyStage();
+        GameLoop.startStage(stage);
     }
 }

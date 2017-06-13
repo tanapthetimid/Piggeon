@@ -17,7 +17,7 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
 /**
  * The Camera class is used to update the Node object

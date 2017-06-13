@@ -17,12 +17,12 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
-import java.util.ArrayList;
-import java.util.TreeMap;
-import java.util.Set;
-import java.util.HashSet;
+import java.piggeon.util.ArrayList;
+import java.piggeon.util.TreeMap;
+import java.piggeon.util.Set;
+import java.piggeon.util.HashSet;
 
 public class CollisionDetection
 {
@@ -37,26 +37,26 @@ public class CollisionDetection
     public static final int BOTTOM_RIGHT = 8;
 
     public static final int CORNER_LINIENCY = 5;
-    
+
     //returns the collided side with respect to the first argument
     public static int checkCollision(GameObject obj1, GameObject obj2)
     {
         return checkCollisionVelocityAware(obj1,0,0,obj2,0,0);
     }
-    
+
     public static boolean checkCollisionSimple(GameObject obj1, GameObject obj2)
     {
-        double xOverlap 
+        double xOverlap
         = oneDimensionalOverlap(obj1.getX(), obj1.getWidth()
             , obj2.getX(), obj2.getWidth());
         double yOverlap
         = oneDimensionalOverlap(obj1.getY(), obj1.getHeight()
             , obj2.getY(), obj2.getHeight());
-            
+
         return xOverlap > 0 && yOverlap > 0;
     }
-    
-    
+
+
 
     public static int checkCollisionExpensiveVelocityAware(GameObject obj1, double velocityX1, double velocityY1
     , GameObject obj2, double velocityX2, double velocityY2)
@@ -86,7 +86,7 @@ public class CollisionDetection
     {
         return (checkCollisionSurfaceAreaAware(obj1, velocityX1, velocityY1, obj2, velocityX2, velocityY2))[0];
     }
-    
+
     public static ArrayList<Integer> objectCollisionSurfaceAreaAwareHelper
                     (GameObject obj1, float velocityX1, float velocityY1
                     , float velocityX2, float velocityY2, HashSet<GameObject> gameObjects)
@@ -130,7 +130,7 @@ public class CollisionDetection
         {
             collisionDir.addAll(collisions.values());
         }
-        
+
         return collisionDir;
     }
 
@@ -139,7 +139,7 @@ public class CollisionDetection
     {
         int[] values = new int[2];
         //get overlap
-        double xOverlap 
+        double xOverlap
         = oneDimensionalOverlap(obj1.getX()+velocityX1, obj1.getWidth()
             , obj2.getX()+velocityX2, obj2.getWidth());
         double yOverlap
@@ -170,15 +170,15 @@ public class CollisionDetection
                 }
             }else
             {//
-                if(obj1.getX()+velocityX1 > obj2.getX()+velocityX2 
+                if(obj1.getX()+velocityX1 > obj2.getX()+velocityX2
                 && obj1.getY()+velocityY1 > obj2.getY()+velocityY2)
                 {
                     values[0] = TOP_LEFT;
-                }else if(obj1.getX()+velocityX1 < obj2.getX()+velocityX2 
+                }else if(obj1.getX()+velocityX1 < obj2.getX()+velocityX2
                 && obj1.getY()+velocityY1 > obj2.getY()+velocityY2)
                 {
                     values[0] = TOP_RIGHT;
-                }else if(obj1.getX()+velocityX1 > obj2.getX()+velocityX2 
+                }else if(obj1.getX()+velocityX1 > obj2.getX()+velocityX2
                 && obj1.getY()+velocityY1 < obj2.getY()+velocityY2)
                 {
                     values[0] = BOTTOM_LEFT;

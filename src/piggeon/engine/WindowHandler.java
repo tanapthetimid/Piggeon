@@ -17,7 +17,7 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.*;
@@ -25,7 +25,7 @@ import static org.lwjgl.system.MemoryUtil.*;
 
 import org.lwjgl.opengl.*;
 import org.lwjgl.glfw.*;
-import util.ImageUtils;
+import piggeon.util.ImageUtils;
 
 import java.nio.*;
 

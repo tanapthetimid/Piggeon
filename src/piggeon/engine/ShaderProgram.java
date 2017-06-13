@@ -17,9 +17,9 @@
  * along with Piggeon.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package engine;
+package piggeon.engine;
 
-import util.FileUtils;
+import piggeon.util.FileUtils;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL20.*;
@@ -31,7 +31,7 @@ public class ShaderProgram
 	private int vertexShaderID;
 
 	/**
-	 * Create a shader program
+	 * Create a piggeon.shader program
 	 */
 	public ShaderProgram()
 	{
@@ -41,52 +41,52 @@ public class ShaderProgram
 	/**
 	 * Attach a Vertex Shader to this program
 	 *
-	 * @param filename File name of vertex shader source
+	 * @param filename File name of vertex piggeon.shader source
 	 */
 	public void attachVertexShader(String filename)
 	{
 		//load source
 		String vertexShaderSource = FileUtils.readStringFromFile(filename);
 
-		//create shader and set source
+		//create piggeon.shader and set source
 		vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 		glShaderSource(vertexShaderID, vertexShaderSource);
 
-		//compile shader
+		//compile piggeon.shader
 		glCompileShader(vertexShaderID);
 
 		//check for error
 		if(glGetShaderi(vertexShaderID, GL_COMPILE_STATUS) == GL_FALSE)
-			throw new RuntimeException("Error creating vertex shader\n"
+			throw new RuntimeException("Error creating vertex piggeon.shader\n"
 				+ glGetShaderInfoLog(vertexShaderID, glGetShaderi(vertexShaderID, GL_INFO_LOG_LENGTH)));
 
-		//attach shader
+		//attach piggeon.shader
 		glAttachShader(programID, vertexShaderID);
 	}
 
 	/**
 	 * Attach a Fragment Shader to this program
 	 *
-	 * @param filename File name of fragment shader source
+	 * @param filename File name of fragment piggeon.shader source
 	 */
 	public void attachFragmentShader(String filename)
 	{
 		//load source
 		String fragmentShaderSource = FileUtils.readStringFromFile(filename);
 
-		//create shader and set source
+		//create piggeon.shader and set source
 		fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
 		glShaderSource(fragmentShaderID, fragmentShaderSource);
 
-		//compile shader
+		//compile piggeon.shader
 		glCompileShader(fragmentShaderID);
 
 		//check for error
 		if(glGetShaderi(fragmentShaderID, GL_COMPILE_STATUS) == GL_FALSE)
-			throw new RuntimeException("Error creating fragment shader\n"
+			throw new RuntimeException("Error creating fragment piggeon.shader\n"
 				+ glGetShaderInfoLog(fragmentShaderID, glGetShaderi(fragmentShaderID, GL_INFO_LOG_LENGTH)));
 
-		//attach shader
+		//attach piggeon.shader
 		glAttachShader(programID, fragmentShaderID);
 	}
 
@@ -100,7 +100,7 @@ public class ShaderProgram
 
 		//check for linking error
 		if(glGetProgrami(programID, GL_LINK_STATUS) == GL_FALSE)
-			throw new RuntimeException("Unable to link shader program!");
+			throw new RuntimeException("Unable to link piggeon.shader program!");
 	}
 
 	public void bind()
@@ -121,7 +121,7 @@ public class ShaderProgram
 		glDetachShader(programID, vertexShaderID);
 		glDetachShader(programID, fragmentShaderID);
 
-		//delete shader
+		//delete piggeon.shader
 		glDeleteShader(vertexShaderID);
 		glDeleteShader(fragmentShaderID);
 		//delete program
