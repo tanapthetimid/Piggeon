@@ -66,9 +66,15 @@ public class WindowHandler
         }
         
         /*window hints/settings*/
-        glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+        //glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+        //enable glsl 330 core on mac os
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
         /*stores created window textureID*/
         window = glfwCreateWindow(width+borderWidth*2, height+borderWidth*2, title, NULL, NULL);
 
