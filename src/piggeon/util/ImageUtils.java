@@ -37,10 +37,14 @@ import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
 import static org.lwjgl.stb.STBImage.*;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.nio.*;
-
+import java.net.URL;
+import java.io.*;
 import java.util.HashMap;
 /**
  * This class contains static methods used
@@ -58,7 +62,7 @@ public class ImageUtils
 
     /**
      * Loads image from specified path. Returns an ImageInfo
-     * object that stores critical information such as id, width,
+     * object that stores critical information such as textureID, width,
      * and height.
      * 
      * @param   path (required) String path of jpg or png image
@@ -68,46 +72,75 @@ public class ImageUtils
     {
     	ImageInfo imageInfo = loadedTextures.get(path);
     	if(imageInfo == null){
-	        /*generates texture and binds texture*/
-	        int texture = glGenTextures();
-	        glBindTexture(GL_TEXTURE_2D, texture);
-	        
-	        /*sets texture sampling filter for scaling images*/
-	        
-	        /*scale down filter*/
-	        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	        /*scale up filter*/
-	        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	        
-	        int width = 0;
-	        int height = 0;
+
+	        BufferedImage image = null;
+	        int texture = 0;
 	        
 	        /*loads image into byte buffer then makes it available to GPU through OpenGl*/
-	        try (MemoryStack stack = MemoryStack.stackPush()) 
+	        try
 	        {
-	            IntBuffer w = stack.mallocInt(1);
-	            IntBuffer h = stack.mallocInt(1);
-	            IntBuffer comp = stack.mallocInt(1);
+                URL imageUrl = ImageUtils.class.getClassLoader().getResource(path);
+                image = ImageIO.read(imageUrl);
 
-	            ByteBuffer image = stbi_load(path,w,h,comp,4);
-	            if(image == null)
-	            {
-	                System.err.println("failed to load image");
-	            }
+                ByteBuffer buffer = bufferedImageToByteBuffer(image);
 
-	            width = w.get();
-	            height = h.get();
-
-	            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-	            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-                glGenerateMipmap(GL_TEXTURE_2D);
+                texture = loadImageToTexture(buffer, image.getWidth(), image.getHeight());
             }
-	        imageInfo = new ImageInfo(texture, width, height);
+            catch(IOException e)
+			{
+				e.printStackTrace();
+			}
+
+	        imageInfo = new ImageInfo(texture, image.getWidth(), image.getHeight());
 	        loadedTextures.put(path, imageInfo);
 	    }
 	    return imageInfo;
     }
+
+    public static int loadImageToTexture(ByteBuffer buffer, int width, int height)
+    {
+        /*generates texture and binds texture*/
+        int texture = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, texture);
+
+        /*sets texture sampling filter for scaling images*/
+
+        /*scale down filter*/
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        /*scale up filter*/
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        return texture;
+    }
+
+    private static int BYTES_PER_PIXEL = 4; // for argb
+
+	public static ByteBuffer bufferedImageToByteBuffer(BufferedImage image){
+
+		int[] pixels = new int[image.getWidth() * image.getHeight()];
+		image.getRGB(0, 0, image.getWidth(), image.getHeight(), pixels, 0, image.getWidth());
+
+		ByteBuffer buffer = BufferUtils.createByteBuffer(image.getWidth() * image.getHeight() * BYTES_PER_PIXEL); //4 for RGBA, 3 for RGB
+
+		for(int y = 0; y < image.getHeight(); y++){
+			for(int x = 0; x < image.getWidth(); x++){
+				int pixel = pixels[y * image.getWidth() + x];
+				buffer.put((byte) ((pixel >> 16) & 0xFF));     // Red component
+				buffer.put((byte) ((pixel >> 8) & 0xFF));      // Green component
+				buffer.put((byte) (pixel & 0xFF));               // Blue component
+				buffer.put((byte) ((pixel >> 24) & 0xFF));    // Alpha component. Only for RGBA
+			}
+		}
+
+		buffer.flip(); //FOR THE LOVE OF GOD DO NOT FORGET THIS
+
+		return buffer;
+	}
     
     /**
      * loads image into a ByteBuffer object and returns
@@ -123,18 +156,21 @@ public class ImageUtils
         
         try (MemoryStack stack = MemoryStack.stackPush()) 
         {
-            IntBuffer w = stack.mallocInt(1);
-            IntBuffer h = stack.mallocInt(1);
-            IntBuffer comp = stack.mallocInt(1);
+            URL imgUrl = ImageUtils.class.getClassLoader().getResource(path);
 
-            ByteBuffer image = stbi_load(path,w,h,comp,4);
-            if(image == null)
-            {
-                System.err.println("failed to load image");
-            }
+            URL imageUrl = ImageUtils.class.getClassLoader().getResource(path);
+
+            BufferedImage image = ImageIO.read(imageUrl);
+
+            ByteBuffer buffer = bufferedImageToByteBuffer(image);
+
             value[0] = image;
-            value[1] = w.get();
-            value[2] = h.get();
+            value[1] = image.getWidth();
+            value[2] = image.getHeight();
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
         }
         return value;
     }

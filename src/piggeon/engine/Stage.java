@@ -41,7 +41,8 @@ import java.util.LinkedList;
  */
 public abstract class Stage
 {
-	//stores level's GameObject(s) in n-tree
+
+    //stores level's GameObject(s) in n-tree
     //root node of the object's n-tree
     private Node rootNode;
 

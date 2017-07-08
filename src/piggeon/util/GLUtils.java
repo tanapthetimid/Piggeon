@@ -51,7 +51,7 @@ public class GLUtils
 
     public static int createVertexArrays(ImageInfo imageInfo)
     {
-        Integer savedVAO = vaoCache.get(imageInfo.id);
+        Integer savedVAO = vaoCache.get(imageInfo.textureID);
         if(savedVAO == null)
         {
             int vaoID = glGenVertexArrays();
@@ -104,9 +104,14 @@ public class GLUtils
             glVertexAttribPointer(1, 2, GL_FLOAT, false, 0, 0);
             glEnableVertexAttribArray(1);
 
-            vaoCache.put(imageInfo.id, vaoID);
+            vaoCache.put(imageInfo.textureID, vaoID);
             return vaoID;
         }
         return savedVAO;
+    }
+
+    public static void deleteTexture(int texture)
+    {
+        glDeleteTextures(texture);
     }
 }

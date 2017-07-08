@@ -69,7 +69,7 @@ public class WindowHandler
         glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
         glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-        /*stores created window id*/
+        /*stores created window textureID*/
         window = glfwCreateWindow(width+borderWidth*2, height+borderWidth*2, title, NULL, NULL);
 
         if(window == NULL)

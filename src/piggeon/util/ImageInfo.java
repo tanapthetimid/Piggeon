@@ -38,7 +38,7 @@ package piggeon.util;
  * by the Image class.
  * 
  * Stores
- *    -Opengl: texture id
+ *    -Opengl: texture textureID
  *    -Height
  *    -Width
  */
@@ -52,14 +52,14 @@ public class ImageInfo
      */
    
     /** Value - {@value}, OpenGL texture ID of image*/
-    public int id;
+    public int textureID;
     
     public int width;
     public int height;
     
     public ImageInfo(int id, int width, int height)
     {
-        this.id = id;
+        this.textureID = id;
         this.width = width;
         this.height = height;
     }

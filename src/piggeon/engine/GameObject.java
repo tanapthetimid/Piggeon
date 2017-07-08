@@ -82,9 +82,18 @@ public abstract class GameObject extends Node
     public void setTexture(String path)
     {
         ImageInfo info = ImageUtils.loadImage(path);
-        textureID = info.id;
+        textureID = info.textureID;
         setRawHeight(info.height);
         setRawWidth(info.width);
+
+        vaoID = GLUtils.createVertexArrays(info);
+    }
+
+    public void setTexture(ImageInfo info)
+    {
+        textureID = info.textureID;
+        setRawWidth(info.width);
+        setRawHeight(info.height);
 
         vaoID = GLUtils.createVertexArrays(info);
     }
@@ -92,8 +101,8 @@ public abstract class GameObject extends Node
     //accessors
     public float getRawWidth(){return width;}
     public float getRawHeight(){return height;}
-    public float getWidth(){return width * getScaleX();}
-    public float getHeight(){return height * getScaleY();}
+    public float getScaledWidth(){return width * getScaleX();}
+    public float getScaledHeight(){return height * getScaleY();}
     public int getTextureID(){return textureID;}
     public int getVertexArraysObjectID(){return vaoID;}
 }
