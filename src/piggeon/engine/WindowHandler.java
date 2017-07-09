@@ -64,23 +64,25 @@ public class WindowHandler
         {
             System.err.println("GLFW initialization failed");
         }
-        
+
         /*window hints/settings*/
         glfwWindowHint(GLFW_FOCUSED, GL_TRUE);
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
+        /*
         //enable glsl 330 core on mac os
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+        */
 
         /*stores created window textureID*/
         window = glfwCreateWindow(width+borderWidth*2, height+borderWidth*2, title, NULL, NULL);
 
         if(window == NULL)
         {
-            System.err.println("Could not create window!");
+            System.err.println("GLFW could not create window!");
         }
 
         /*unused line*/
@@ -98,7 +100,9 @@ public class WindowHandler
         glfwShowWindow(window);
 
         GL.createCapabilities();
-        
+
+        System.out.println("OpenGL Version: " + glGetString(GL_VERSION));
+
         enableGlFlags();
         
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
