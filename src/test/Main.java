@@ -42,7 +42,7 @@ public class Main
     public static void main(String[] args)
     {
         GameLoop.init("test", null
-                , 500,500
+                , 700,500
                 ,50,50,0);
 
         MyStage stage = new MyStage();
