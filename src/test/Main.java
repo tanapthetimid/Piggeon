@@ -33,6 +33,7 @@
 package test;
 
 import piggeon.engine.*;
+import piggeon.util.GameLoopUninitializedException;
 
 /**
  * Main test class
@@ -46,6 +47,12 @@ public class Main
                 ,50,50,0);
 
         MyStage stage = new MyStage();
+        try {
+            stage.init();
+        }catch(GameLoopUninitializedException ex)
+        {
+            ex.printStackTrace();
+        }
 
         GameLoop.startStage(stage);
 

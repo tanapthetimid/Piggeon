@@ -32,6 +32,8 @@
 
 package piggeon.engine;
 
+import piggeon.util.GameLoopUninitializedException;
+
 import java.util.LinkedList;
 /**
  * Stage abstract class.
@@ -52,13 +54,20 @@ public abstract class Stage
     //Stage's camera
     private Camera camera;
 
-	public Stage()
+	public void init() throws GameLoopUninitializedException
 	{
-		//instantiate var
-		rootNode = new Node();
-		updateList = new LinkedList<>();
-		//calls child initStage method
-		camera = initStage(rootNode, updateList);
+	    if(GameLoop.isInitialized())
+	    {
+            //instantiate var
+            rootNode = new Node();
+            updateList = new LinkedList<>();
+            //calls child initStage method
+            camera = initStage(rootNode, updateList);
+        }
+        else
+        {
+            throw new GameLoopUninitializedException();
+        }
 	}
 
 	/**

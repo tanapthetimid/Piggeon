@@ -72,6 +72,9 @@ public class  GameLoop
     //OpenGL piggeon.shader program ID
     private static ShaderProgram shaderProgram;
 
+    //for checking if gameloop is initialized
+    private static boolean initialized = false;
+
     /**
      * initializes the game loop piggeon.engine and initializes piggeon.shader program
      * @param title         Window title
@@ -87,6 +90,8 @@ public class  GameLoop
             , int winOffsetX, int winOffsetY
             , int borderWidth)
     {
+        initialized = true;
+
         //initialize window
         WindowHandler.init(title, cursorFile
                 , canvasWidth, canvasHeight
@@ -104,6 +109,11 @@ public class  GameLoop
         shaderProgram.attachVertexShader("piggeon/shader/vertex_shader/shader.vs");
         shaderProgram.attachFragmentShader("piggeon/shader/fragment_shader/shader.fs");
         shaderProgram.link();
+    }
+
+    public static boolean isInitialized()
+    {
+        return initialized;
     }
 
     /**
