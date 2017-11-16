@@ -12,5 +12,8 @@ can be extremely daunting for beginners. This engine does not require any knowle
 matrix manipulation, image loading, or other scary stuff. It provides a model for creating GameObject(s) and Stage(s) that
 are simple, yet extensible.
 
+# Requirements
+This project uses LWJGL graphics library, but LWJGL binaries are not bundled here. If you would like to build this project, download LWJGL separately.
+
 # Author
 Tanapoom Sermchaiwong
