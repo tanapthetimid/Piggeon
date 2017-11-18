@@ -34,7 +34,9 @@ package piggeon.engine;
 
 import piggeon.util.*;
 
-public abstract class GameObject extends Node
+import java.io.Serializable;
+
+public abstract class GameObject extends Node implements Serializable
 {
     private int textureID;
     private float width;
@@ -57,6 +59,8 @@ public abstract class GameObject extends Node
             setTexture(texturePath[0]);
         }
     }
+
+    public abstract void reload();
 
     /**
      * returns an arraylist formatted as such: a positive or

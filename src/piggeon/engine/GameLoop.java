@@ -75,6 +75,11 @@ public class  GameLoop
     //for checking if gameloop is initialized
     private static boolean initialized = false;
 
+    //verbose mode for debug
+    private static boolean verbose = false;
+
+    private static Object returnValue;
+
     /**
      * initializes the game loop piggeon.engine and initializes piggeon.shader program
      * @param title         Window title
@@ -84,12 +89,15 @@ public class  GameLoop
      * @param winOffsetX    Window offset from the left side of screen.
      * @param winOffsetY    Window offset from the top of the screen.
      * @param borderWidth   Width of border around game window
+     * @param verbose         Enable or disable verbose (debug)
      */
     public static void init(String title, String cursorFile
             , int canvasWidth, int canvasHeight
             , int winOffsetX, int winOffsetY
-            , int borderWidth)
+            , int borderWidth
+            , boolean verbose)
     {
+        GameLoop.verbose = verbose;
         initialized = true;
 
         //initialize window
@@ -111,6 +119,9 @@ public class  GameLoop
         shaderProgram.link();
     }
 
+    /**
+     * allows for query if GameLoop is initialized
+     */
     public static boolean isInitialized()
     {
         return initialized;
@@ -136,35 +147,56 @@ public class  GameLoop
         stopRequest = true;
     }
 
-
-    //game loop
-    private static void run()
+    //clean up game loop
+    public static void destroyGameLoop()
     {
-        //DEBUG
-        int count = 0;
-        long last = System.currentTimeMillis();
-        while (!glfwWindowShouldClose(WindowHandler.getWindowId()) && !stopRequest)
-        {
-            //DEBUG
-            if(count == 100)
-            {
-                long diff = System.currentTimeMillis() - last;
-
-                System.out.println((double)count * 1000.0 / (double)diff);
-
-                last = System.currentTimeMillis();
-                count = 0;
-            }
-            count++;
-            //end
-            processUpdates();//glfwPollEvents();
-            render();
-        }
-
         //clean up
         shaderProgram.dispose();
         glfwDestroyWindow(WindowHandler.getWindowId());
         glfwTerminate();
+    }
+
+    public static void setReturnValue(Object object)
+    {
+        returnValue = object;
+    }
+
+    //game loop
+    private static Object run()
+    {
+        //verbose
+        long last = 0;
+        int debugLoopCount = 0;
+        if(verbose)
+        {
+            last = System.currentTimeMillis();
+        }
+        //end verbose
+
+        while (!glfwWindowShouldClose(WindowHandler.getWindowId()) && !stopRequest)
+        {
+            //verbose
+            if(verbose)
+            {
+                if (debugLoopCount == 100)
+                {
+                    long diff = System.currentTimeMillis() - last;
+
+                    System.out.println((double) debugLoopCount * 1000.0 / (double) diff);
+
+                    last = System.currentTimeMillis();
+                    debugLoopCount = 0;
+                }
+                debugLoopCount++;
+            }
+            //end verbose
+
+            processUpdates();
+            render();
+        }
+
+        stopRequest = false;
+        return returnValue;
     }
 
     private static void processUpdates()

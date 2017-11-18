@@ -59,4 +59,6 @@ public class ExampleStage extends Stage
 
         return new Camera(rootNode);
     }
+
+    public void onDestroy(){};
 }

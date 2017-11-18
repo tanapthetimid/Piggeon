@@ -34,6 +34,7 @@ package piggeon.engine;
 
 import piggeon.util.GameLoopUninitializedException;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 /**
  * Stage abstract class.
@@ -41,7 +42,7 @@ import java.util.LinkedList;
  * initiated and saved by the **TO BE IMPLEMENTED** save system.
  * Stage holds a HashSet of GameObjects inside the Stage.
  */
-public abstract class Stage
+public abstract class Stage implements Serializable
 {
 
     //stores level's GameObject(s) in n-tree
@@ -79,7 +80,7 @@ public abstract class Stage
      * to updateList
      *
      * Note: Do not call this method manually.
-     *
+     *null
      * @param rootNode      Root node of scene graph.
      * @param updateList    List of objects that should have it's update() method
      *                      called every frame.
@@ -113,5 +114,21 @@ public abstract class Stage
     public GameObject[] getUpdateListAsArray()
     {
         return updateList.toArray(new GameObject[updateList.size()]);
+    }
+
+    public abstract void onDestroy();
+
+    public void destroyStage()
+    {
+        onDestroy();
+
+        rootNode = null;
+        updateList = null;
+        camera = null;
+    }
+
+    public void reload()
+    {
+        rootNode.getChildren();
     }
 }

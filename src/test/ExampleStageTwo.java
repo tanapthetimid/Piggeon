@@ -6,21 +6,21 @@
  * modification, are permitted provided that the following conditions are
  * met:
  *
- * - Redistributions of source code must retain the above copyright
+ * * Redistributions of source code must retain the above copyright
  *   notice, this list of conditions and the following disclaimer.
  *
- * - Redistributions in binary form must reproduce the above copyright
+ * * Redistributions in binary form must reproduce the above copyright
  *   notice, this list of conditions and the following disclaimer in the
  *   documentation and/or other materials provided with the distribution.
  *
- * - Neither the name Piggeon nor the names of its contributors may be
- *   used to endorse or promote products derived from this software
- *   without specific prior written permission.
+ * * Neither the name 'Piggeon' nor the names of
+ *   its contributors may be used to endorse or promote products derived
+ *   from this software without specific prior written permission.
  *
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
  * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR
+ * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
  * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
  * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
  * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR
@@ -33,30 +33,34 @@
 package test;
 
 import piggeon.engine.*;
-import piggeon.util.*;
 
-import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
+import java.util.LinkedList;
 
-public class TextBoxExampleObject extends GameObject
+public class ExampleStageTwo extends Stage
 {
-    public TextBoxExampleObject()
+    public Camera initStage(Node rootNode, LinkedList<GameObject> updateList)
     {
-        super(null);
-        info = TextUtils.generateTextBoxTexture("hellololololh wow what is this thing", 120,120,true, 12);
-        setTexture(info);
-        setX(250);
-        setY(250);
-    }
+        for(int x = 0; x < 1; x++)
+        {
+            GameObject gogo = new ExampleMovingBoxObject("testres/test.png");
+            gogo.setX(gogo.getScaledWidth() / 2);
+            gogo.setY(gogo.getScaledHeight() / 2);
 
-    ImageInfo info;
-
-    long x = 0;
-    @Override
-    public void update(Stage stage)
-    {
-        //x++;
-        if(InputHandler.isKeyDown(GLFW_KEY_P)){
-            GameLoop.stopLoop();
+            updateList.add(gogo);
+            rootNode.attachChild(gogo);
         }
+
+        /*
+        GameObject go = new TextBoxExampleObject();
+        updateList.add(go);
+        rootNode.attachChild(go);
+
+        SoundExampleObject mo = new SoundExampleObject();
+        updateList.add(mo);
+        */
+
+        return new Camera(rootNode);
     }
+
+    public void onDestroy(){}
 }

@@ -61,12 +61,27 @@ public class ExampleMovingBoxObject extends GameObject
         dy = 10;
     }
 
+    public void reload()
+    {
+
+    }
+
     int dx;
     int dy;
+
+    long a = 0;
 
     @Override
     public void update(Stage stage)
     {
+        if(InputHandler.isKeyDown(GLFW_KEY_ENTER))
+        {
+            GameLoop.stopLoop();
+        }
+
+        a++;
+        System.out.println(a);
+
         if(getX() > 500)
         {
             dx =-(int)( Math.random() * 20) - 1;

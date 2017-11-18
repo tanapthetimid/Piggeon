@@ -32,13 +32,15 @@
 
 package piggeon.engine;
 
+import java.io.Serializable;
+
 /**
  * The Camera class is used to update the Node object
  * bounded to camera.
  * Usage: bind a node to camera. Transform camera's node to
  * simulate camera movement.
  */
-public class Camera
+public class Camera implements Serializable
 {
 	//the node bounded to this camera
 	private Node cameraNode;

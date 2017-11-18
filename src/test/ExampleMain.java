@@ -44,18 +44,51 @@ public class ExampleMain
     {
         GameLoop.init("test", null
                 , 700,500
-                ,50,50,0);
+                ,50,50,0, true);
 
-        ExampleStage stage = new ExampleStage();
+        SaveState load = SaveState.loadFromFile("save1.sv");
+
+
+        Stage stage = new ExampleStage();
+
+        if(load != null && !load.isEmpty())
+        {
+            stage = load.getStage(1);
+            stage.reload();
+        }
+
+        if(load == null || load.isEmpty())
+        {
+            try
+            {
+                stage.init();
+            } catch (GameLoopUninitializedException ex)
+            {
+                ex.printStackTrace();
+            }
+        }
+
+        GameLoop.startStage(stage);
+
+        System.out.println("end");
+
+        ExampleStageTwo stage2 = new ExampleStageTwo();
+
         try {
-            stage.init();
+            stage2.init();
         }catch(GameLoopUninitializedException ex)
         {
             ex.printStackTrace();
         }
 
-        GameLoop.startStage(stage);
+        System.out.println("start2");
 
+        GameLoop.startStage(stage2);
 
+        SaveState saveState = new SaveState();
+        saveState.addStage(1, stage);
+        saveState.saveToFile("save1.sv");
+
+        GameLoop.destroyGameLoop();
     }
 }

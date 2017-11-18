@@ -32,6 +32,8 @@
 
 package piggeon.util;
 
+import java.io.Serializable;
+
 /**
  * ImageInfo class is used to store
  * information related to an image loaded
@@ -42,7 +44,7 @@ package piggeon.util;
  *    -Height
  *    -Width
  */
-public class ImageInfo
+public class ImageInfo implements Serializable
 {
     /**
      * OpenGL stores texture ID statically.
