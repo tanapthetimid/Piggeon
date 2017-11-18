@@ -54,14 +54,15 @@ public class ExampleMain
         if(load != null && !load.isEmpty())
         {
             stage = load.getStage(1);
-            stage.reload();
+            stage.loadStage();
         }
 
         if(load == null || load.isEmpty())
         {
             try
             {
-                stage.init();
+                stage.createStage();
+                stage.loadStage();
             } catch (GameLoopUninitializedException ex)
             {
                 ex.printStackTrace();
@@ -75,7 +76,8 @@ public class ExampleMain
         ExampleStageTwo stage2 = new ExampleStageTwo();
 
         try {
-            stage2.init();
+            stage2.createStage();
+            stage2.loadStage();
         }catch(GameLoopUninitializedException ex)
         {
             ex.printStackTrace();

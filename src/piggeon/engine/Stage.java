@@ -55,7 +55,7 @@ public abstract class Stage implements Serializable
     //Stage's camera
     private Camera camera;
 
-	public void init() throws GameLoopUninitializedException
+	public void createStage() throws GameLoopUninitializedException
 	{
 	    if(GameLoop.isInitialized())
 	    {
@@ -63,7 +63,7 @@ public abstract class Stage implements Serializable
             rootNode = new Node();
             updateList = new LinkedList<>();
             //calls child initStage method
-            camera = initStage(rootNode, updateList);
+            camera = onCreate(rootNode, updateList);
         }
         else
         {
@@ -89,8 +89,16 @@ public abstract class Stage implements Serializable
      *                      that has the root node or a child of the root node
      *                      bind to it.
 	 */
-    public abstract Camera initStage(Node rootNode
+    public abstract Camera onCreate(Node rootNode
                             , LinkedList<GameObject> updateList);
+
+    public void loadStage()
+    {
+        onLoad(rootNode, updateList);
+    }
+
+    public abstract void onLoad(Node rootNode
+            , LinkedList<GameObject> updateList);
 
     //return Stage's Camera
     public Camera getCamera()
@@ -125,10 +133,5 @@ public abstract class Stage implements Serializable
         rootNode = null;
         updateList = null;
         camera = null;
-    }
-
-    public void reload()
-    {
-        rootNode.getChildren();
     }
 }

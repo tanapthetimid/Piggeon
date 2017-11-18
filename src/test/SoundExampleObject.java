@@ -38,9 +38,8 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_A;
 
 public class SoundExampleObject extends GameObject
 {
-    public SoundExampleObject()
+    public void onLoad()
     {
-        super(null);
         SoundEffect sfx = new SoundEffect("testres/ost_boss_extra.wav");sfx.open();sfx.playAndClose();
     }
 

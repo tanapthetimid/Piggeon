@@ -42,10 +42,8 @@ import java.awt.*;
 
 public class ExampleMovingBoxObject extends GameObject
 {
-    public ExampleMovingBoxObject(String texturePath)
+    public void onLoad()
     {
-        super(null);
-
         int dimen = 50;
         BufferedImage image = new BufferedImage(dimen,dimen, BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = image.createGraphics();
@@ -59,11 +57,6 @@ public class ExampleMovingBoxObject extends GameObject
 
         dx = 10;
         dy = 10;
-    }
-
-    public void reload()
-    {
-
     }
 
     int dx;

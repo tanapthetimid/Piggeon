@@ -44,23 +44,14 @@ public abstract class GameObject extends Node implements Serializable
     private int vaoID;
 
     /**
-     * initializes game object's texture ID and vertex arrays object ID
-     * @param texturePath path to sprite
+     * init method
      */
-    public GameObject(String[] texturePath)
+    public void load()
     {
-        if(texturePath != null && texturePath.length > 0)
-        {
-            for (String path : texturePath)
-            {
-                GLUtils.createVertexArrays(ImageUtils.loadImage(path));
-            }
-
-            setTexture(texturePath[0]);
-        }
+        onLoad();
     }
 
-    public abstract void reload();
+    public abstract void onLoad();
 
     /**
      * returns an arraylist formatted as such: a positive or

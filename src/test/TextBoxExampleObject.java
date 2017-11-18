@@ -39,13 +39,16 @@ import static org.lwjgl.glfw.GLFW.GLFW_KEY_P;
 
 public class TextBoxExampleObject extends GameObject
 {
-    public TextBoxExampleObject()
-    {
-        super(null);
-        info = TextUtils.generateTextBoxTexture("hellololololh wow what is this thing", 120,120,true, 12);
-        setTexture(info);
+    public TextBoxExampleObject(){
         setX(250);
         setY(250);
+    }
+
+    public void onLoad()
+    {
+        info = TextUtils.generateTextBoxTexture("hellololololh wow what is this thing", 120,120,true, 12);
+        setTexture(info);
+
     }
 
     ImageInfo info;

@@ -38,11 +38,11 @@ import java.util.LinkedList;
 
 public class ExampleStageTwo extends Stage
 {
-    public Camera initStage(Node rootNode, LinkedList<GameObject> updateList)
+    public Camera onCreate(Node rootNode, LinkedList<GameObject> updateList)
     {
         for(int x = 0; x < 1; x++)
         {
-            GameObject gogo = new ExampleMovingBoxObject("testres/test.png");
+            GameObject gogo = new ExampleMovingBoxObject();
             gogo.setX(gogo.getScaledWidth() / 2);
             gogo.setY(gogo.getScaledHeight() / 2);
 
@@ -60,6 +60,12 @@ public class ExampleStageTwo extends Stage
         */
 
         return new Camera(rootNode);
+    }
+
+    public void onLoad(Node rootNode, LinkedList<GameObject> updateList){
+        updateList.forEach((GameObject gameObject) -> {
+            gameObject.load();
+        });
     }
 
     public void onDestroy(){}
