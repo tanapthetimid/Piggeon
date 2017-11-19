@@ -102,3 +102,4 @@ fabric.properties
 .idea/*
 
 Piggeon.iml
+*.sv
