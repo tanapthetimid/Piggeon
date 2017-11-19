@@ -43,13 +43,13 @@ public class SoundExampleObject extends GameObject
         SoundEffect sfx = new SoundEffect("testres/ost_boss_extra.wav");sfx.open();sfx.playAndClose();
     }
 
-    int cd = 100;
+    long cd = 100;
 
     @Override
-    public void update(Stage stage)
+    public void onUpdate(Stage stage)
     {
         cd++;
-        if((false||InputHandler.isKeyDown(GLFW_KEY_A)) && cd > 10)
+        if((false||InputHandler.isKeyDown(GLFW_KEY_A)) && cd > 5)
         {
             cd = 0;
             SoundEffect explosion = new SoundEffect("testres/explosion.wav");explosion.open();explosion.playAndClose();

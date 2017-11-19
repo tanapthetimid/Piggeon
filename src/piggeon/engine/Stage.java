@@ -40,7 +40,7 @@ import java.util.LinkedList;
  * Stage abstract class.
  * This class represents a Stage that can be
  * initiated and saved by the **TO BE IMPLEMENTED** save system.
- * Stage holds a HashSet of GameObjects inside the Stage.
+ * Stage holds a HashSet of Updatables inside the Stage.
  */
 public abstract class Stage implements Serializable
 {
@@ -50,11 +50,12 @@ public abstract class Stage implements Serializable
     private Node rootNode;
 
     //list of objects to call update() at every frame
-    private LinkedList<GameObject> updateList;
+    private LinkedList<Updatable> updateList;
 
     //Stage's camera
     private Camera camera;
 
+    //should be called in main method
 	public void createStage() throws GameLoopUninitializedException
 	{
 	    if(GameLoop.isInitialized())
@@ -90,15 +91,17 @@ public abstract class Stage implements Serializable
      *                      bind to it.
 	 */
     public abstract Camera onCreate(Node rootNode
-                            , LinkedList<GameObject> updateList);
+                            , LinkedList<Updatable> updateList);
 
+    //loadStage() method should be in main method to load the stage
     public void loadStage()
     {
         onLoad(rootNode, updateList);
     }
 
+    //load callback should be used to call load() on GameObject(s) that needs to be loaded (textures, etc.)
     public abstract void onLoad(Node rootNode
-            , LinkedList<GameObject> updateList);
+            , LinkedList<Updatable> updateList);
 
     //return Stage's Camera
     public Camera getCamera()
@@ -113,19 +116,20 @@ public abstract class Stage implements Serializable
     }
 
     //return objects that require updating
-    public LinkedList<GameObject> getUpdateList()
+    public LinkedList<Updatable> getUpdateList()
     {
         return updateList;
     }
 
     //return update list as array
-    public GameObject[] getUpdateListAsArray()
+    public Updatable[] getUpdateListAsArray()
     {
-        return updateList.toArray(new GameObject[updateList.size()]);
+        return updateList.toArray(new Updatable[updateList.size()]);
     }
 
     public abstract void onDestroy();
 
+    //method should be called done using this stage, including after the stage has been saved in savestate
     public void destroyStage()
     {
         onDestroy();

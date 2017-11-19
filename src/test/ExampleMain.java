@@ -40,13 +40,14 @@ import piggeon.util.GameLoopUninitializedException;
  */
 public class ExampleMain
 {
+    public static SaveState load;
     public static void main(String[] args)
     {
         GameLoop.init("test", null
                 , 700,500
                 ,50,50,0, true);
 
-        SaveState load = SaveState.loadFromFile("save1.sv");
+        load = SaveState.loadFromFile("save1.sv");
 
 
         Stage stage = new ExampleStage();
@@ -59,6 +60,7 @@ public class ExampleMain
 
         if(load == null || load.isEmpty())
         {
+
             try
             {
                 stage.createStage();
@@ -69,9 +71,23 @@ public class ExampleMain
             }
         }
 
-        GameLoop.startStage(stage);
+        load = new SaveState();
 
-        System.out.println("end");
+        GameLoop.runStage(stage);
+
+        System.out.println("end--------------------");
+
+        GameLoop.runStage(stage);
+        System.out.println("end----------------------------");
+
+        Stage stageLoaded = load.getStage(2);
+
+        if(stageLoaded != null)
+        {
+            stage = stageLoaded;
+        }
+
+        GameLoop.runStage(stage);
 
         ExampleStageTwo stage2 = new ExampleStageTwo();
 
@@ -85,10 +101,10 @@ public class ExampleMain
 
         System.out.println("start2");
 
-        GameLoop.startStage(stage2);
+        GameLoop.runStage(stage2);
 
         SaveState saveState = new SaveState();
-        saveState.addStage(1, stage);
+        saveState.saveStage(1, stage);
         saveState.saveToFile("save1.sv");
 
         GameLoop.destroyGameLoop();

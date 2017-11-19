@@ -38,7 +38,7 @@ import java.util.LinkedList;
 
 public class ExampleStageTwo extends Stage
 {
-    public Camera onCreate(Node rootNode, LinkedList<GameObject> updateList)
+    public Camera onCreate(Node rootNode, LinkedList<Updatable> updateList)
     {
         for(int x = 0; x < 1; x++)
         {
@@ -62,9 +62,9 @@ public class ExampleStageTwo extends Stage
         return new Camera(rootNode);
     }
 
-    public void onLoad(Node rootNode, LinkedList<GameObject> updateList){
-        updateList.forEach((GameObject gameObject) -> {
-            gameObject.load();
+    public void onLoad(Node rootNode, LinkedList<Updatable> updateList){
+        updateList.forEach((Updatable updatable) -> {
+            updatable.load();
         });
     }
 

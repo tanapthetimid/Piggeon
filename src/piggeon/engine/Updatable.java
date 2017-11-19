@@ -32,24 +32,15 @@
 
 package piggeon.engine;
 
-enum QUADRANT
+/**
+ * Created by Poom on 11/19/2017.
+ *
+ * the Updatable interface can be implemented by any component of the program that
+ * wants to be updated at every frame. Both GameObject(s) and Stage(s) can hold
+ * Updatable(s), whose update() method will be called at every frame.
+ */
+public interface Updatable
 {
-    TOP_RIGHT(1),
-    TOP_LEFT(2),
-    BOTTOM_LEFT(3),
-    BOTTOM_RIGHT(4);
-
-    public final int value;
-
-    QUADRANT(final int newValue)
-    {
-        value = newValue;
-    }
+    void update(Stage stage);
+    void load();
 }
-
-public class QuadTree
-{
-
-}
-
-

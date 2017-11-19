@@ -78,6 +78,8 @@ public class  GameLoop
     //verbose mode for debug
     private static boolean verbose = false;
 
+    //return value that can be modified globally through it's setter method,
+    //this value is returned when the gameloop stops
     private static Object returnValue;
 
     /**
@@ -128,13 +130,13 @@ public class  GameLoop
     }
 
     /**
-     * starts specified stage
+     * runs specified stage
      * @param stage
      */
-    public static void startStage(Stage stage)
+    public static Object runStage(Stage stage)
     {
         GameLoop.stage = stage;
-        run();
+        return run();
     }
 
     /**
@@ -147,7 +149,7 @@ public class  GameLoop
         stopRequest = true;
     }
 
-    //clean up game loop
+    //clean up game loop. to be called when exiting the game
     public static void destroyGameLoop()
     {
         //clean up
@@ -156,6 +158,7 @@ public class  GameLoop
         glfwTerminate();
     }
 
+    //set the return value of the gameloop run method
     public static void setReturnValue(Object object)
     {
         returnValue = object;
@@ -207,10 +210,10 @@ public class  GameLoop
         stage.getCamera().update();
 
         //updates all updatable game objects
-        GameObject[] updateObjects = stage.getUpdateListAsArray();
-        for (GameObject gameObject : updateObjects)
+        Updatable[] updateObjects = stage.getUpdateListAsArray();
+        for (Updatable updatable : updateObjects)
         {
-            gameObject.update(stage);
+            updatable.update(stage);
         }
     }
 

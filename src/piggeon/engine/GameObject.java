@@ -35,37 +35,82 @@ package piggeon.engine;
 import piggeon.util.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
-public abstract class GameObject extends Node implements Serializable
+public abstract class GameObject extends Node implements Serializable, Updatable
 {
     private int textureID;
     private float width;
     private float height;
     private int vaoID;
+    private ArrayList<Updatable> goUpdatables = new ArrayList<>();
+
+    private Animator animator = null;
 
     /**
-     * init method
+     * load method that should be called in onLoad() in the Stage
      */
     public void load()
     {
         onLoad();
     }
 
+    //onload callback used to load object (like textures or other temporary values)
     public abstract void onLoad();
 
     /**
-     * returns an arraylist formatted as such: a positive or
-     * negative int followed by objects to operate on
-     * positive 1 means to add that game object -1 means to remove the game object
-     * example {1,object1,object2, -1, object3}
+     * update interface method called on loop.
+     *
+     * this method updates all the Updatable(s) that the GameObject holds
+     * and also updates the GameObject(s) bounded Animator.
+     *
+     * finally, onUpdate callback is called to child
      */
-    public abstract void update(Stage stage);
-    
-    //interface methods
+    public void update(Stage stage)
+    {
 
+        goUpdatables.forEach( (Updatable updatable) -> {
+            updatable.update(stage);
+        });
+
+        if(animator != null)
+        {
+            animator.update(stage);
+        }
+
+        onUpdate(stage);
+    }
+
+    //onUpdate callback where most game related work is done
+    //must be overridden by child
+    public abstract void onUpdate(Stage stage);
+
+    /**
+     * animator complete callback will be called when the Animator finishes
+     * one iteration of the animation. even in looping mode, this callback will be called
+     */
+    public void onAnimationComplete(String animatorID){};
+    
+    //-----------------------interface methods
     //modifiers
     public void setRawWidth(float width){this.width = width;}
     public void setRawHeight(float height){this.height = height;}
+
+    //modify updatables
+    public void addUpdatable(Updatable updatable)
+    {
+        goUpdatables.add(updatable);
+    }
+    public void removeUpdatable(Updatable updatable)
+    {
+        goUpdatables.remove(updatable);
+    }
+
+    //binds an Animator to this GameObject
+    public void setAnimator(Animator animator) {
+        this.animator = animator;
+        animator.setTargetGameObject(this);
+    }
 
     /**
      * Set the texture to the texture specified in path.
@@ -94,6 +139,9 @@ public abstract class GameObject extends Node implements Serializable
     }
 
     //accessors
+    public Animator getAnimator() {
+        return animator;
+    }
     public float getRawWidth(){return width;}
     public float getRawHeight(){return height;}
     public float getScaledWidth(){return width * getScaleX();}

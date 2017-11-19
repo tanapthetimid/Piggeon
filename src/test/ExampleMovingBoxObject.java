@@ -53,23 +53,49 @@ public class ExampleMovingBoxObject extends GameObject
 
         int texture = ImageUtils.loadImageToTexture(ImageUtils.bufferedImageToByteBuffer(image),image.getWidth(), image.getHeight());
 
-        setTexture(new ImageInfo(texture, dimen, dimen));
+        //setTexture(new ImageInfo(texture, dimen, dimen));
 
         dx = 10;
         dy = 10;
+
+        delayb = 10;
+
+        Animator animator = new Animator("box_color");
+        animator.setLooping(true);
+        animator.addSpriteToMap("testres/frame1.png", 30);
+        animator.addSpriteToMap("testres/frame2.png", 30);
+        animator.addSpriteToMap("testres/frame3.png", 30);
+        animator.addSpriteToMap("testres/frame4.png", 30);
+        setAnimator(animator);
+
     }
 
     int dx;
     int dy;
 
+    int delayb = 10;
+
+    int delayx = 10;
+
     long a = 0;
 
     @Override
-    public void update(Stage stage)
+    public void onUpdate(Stage stage)
     {
-        if(InputHandler.isKeyDown(GLFW_KEY_ENTER))
+        if(delayb > 0) delayb--;
+        if(InputHandler.isKeyDown(GLFW_KEY_ENTER) && delayb <= 0)
         {
+            delayb = 10;
             GameLoop.stopLoop();
+        }
+        if(delayx > 0) delayx--;
+
+        if(InputHandler.isKeyDown(GLFW_KEY_S) && delayx <=0)
+        {
+            delayx = 10;
+            delayb = 10;
+            System.out.println("----------------------save");
+            ExampleMain.load.saveStage(2,stage);
         }
 
         a++;
@@ -77,20 +103,20 @@ public class ExampleMovingBoxObject extends GameObject
 
         if(getX() > 500)
         {
-            dx =-(int)( Math.random() * 20) - 1;
+            dx =-(int)( Math.random() * 5) - 1;
         }
         else if(getX() < 0)
         {
-            dx =(int)( Math.random() * 20) + 1;
+            dx =(int)( Math.random() * 5) + 1;
         }
 
         if(getY() > 500)
         {
-            dy =-(int)( Math.random() * 20) - 1;
+            dy =-(int)( Math.random() * 5) - 1;
         }
         else if(getY() < 0)
         {
-            dy =(int)( Math.random() * 20) + 1;
+            dy =(int)( Math.random() * 5) + 1;
         }
         setX(getX() + dx);
         setY(getY() + dy);

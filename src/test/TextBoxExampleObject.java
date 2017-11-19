@@ -55,7 +55,7 @@ public class TextBoxExampleObject extends GameObject
 
     long x = 0;
     @Override
-    public void update(Stage stage)
+    public void onUpdate(Stage stage)
     {
         //x++;
         if(InputHandler.isKeyDown(GLFW_KEY_P)){
