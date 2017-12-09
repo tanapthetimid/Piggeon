@@ -60,7 +60,7 @@ public class Camera implements Serializable
 	/**
 	 * update interface called by gameLoop
 	 */
-	public void update()
+	public void update(Stage stage)
 	{
 		onUpdate(cameraNode);
 	}
@@ -84,4 +84,6 @@ public class Camera implements Serializable
 	{
 		this.cameraNode = cameraNode;
 	}
+
+	public Node getCameraNode(){return cameraNode;}
 }

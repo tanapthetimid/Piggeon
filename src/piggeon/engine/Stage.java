@@ -31,9 +31,6 @@
  */
 
 package piggeon.engine;
-
-import piggeon.util.GameLoopUninitializedException;
-
 import java.io.Serializable;
 import java.util.LinkedList;
 /**
@@ -56,7 +53,7 @@ public abstract class Stage implements Serializable
     private Camera camera;
 
     //should be called in main method
-	public void createStage() throws GameLoopUninitializedException
+	public void createStage()
 	{
 	    if(GameLoop.isInitialized())
 	    {
@@ -68,7 +65,7 @@ public abstract class Stage implements Serializable
         }
         else
         {
-            throw new GameLoopUninitializedException();
+            System.out.println("GameLoop Uninitialized ERROR");
         }
 	}
 
@@ -130,6 +127,7 @@ public abstract class Stage implements Serializable
     public abstract void onDestroy();
 
     //method should be called done using this stage, including after the stage has been saved in savestate
+    //this method automatically destroys rootNode, updateList, and camera
     public void destroyStage()
     {
         onDestroy();

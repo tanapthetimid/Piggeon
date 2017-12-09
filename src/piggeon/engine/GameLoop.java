@@ -121,6 +121,11 @@ public class  GameLoop
         shaderProgram.link();
     }
 
+    public static void setFragmentShader(String filename){
+        shaderProgram.attachFragmentShader(filename);
+        shaderProgram.link();
+    }
+
     /**
      * allows for query if GameLoop is initialized
      */
@@ -206,15 +211,15 @@ public class  GameLoop
     {
         glfwPollEvents();
 
-        //updates stage's camera
-        stage.getCamera().update();
-
         //updates all updatable game objects
         Updatable[] updateObjects = stage.getUpdateListAsArray();
         for (Updatable updatable : updateObjects)
         {
             updatable.update(stage);
         }
+
+        //updates stage's camera
+        stage.getCamera().update(stage);
     }
 
     //renders all game objects attached to root node
@@ -228,7 +233,7 @@ public class  GameLoop
         /*normalizing transformation, which is applied LAST by property
          *of matrices multiplication.*/
         float[] scale = FloatMatrixUtils
-                .scaleTransformMatrix(2f/canvasWidth, 2f/ canvasHeight);
+                .scaleTransformMatrix(2f/canvasWidth, 2f/canvasHeight);
         float[] translate = FloatMatrixUtils
                 .translateTransformMatrix(-1f, -1f);
 

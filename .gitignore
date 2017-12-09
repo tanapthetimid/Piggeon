@@ -101,5 +101,7 @@ fabric.properties
 
 .idea/*
 
+src/microtransactionsim/
+
 Piggeon.iml
 *.sv

@@ -40,11 +40,8 @@ import java.util.ArrayList;
 public abstract class GameObject extends Node implements Serializable, Updatable
 {
     private int textureID;
-    private float width;
-    private float height;
     private int vaoID;
     private ArrayList<Updatable> goUpdatables = new ArrayList<>();
-
     private Animator animator = null;
 
     /**
@@ -89,12 +86,9 @@ public abstract class GameObject extends Node implements Serializable, Updatable
      * animator complete callback will be called when the Animator finishes
      * one iteration of the animation. even in looping mode, this callback will be called
      */
-    public void onAnimationComplete(String animatorID){};
+    public void onAnimationComplete(String animatorID){}
     
     //-----------------------interface methods
-    //modifiers
-    public void setRawWidth(float width){this.width = width;}
-    public void setRawHeight(float height){this.height = height;}
 
     //modify updatables
     public void addUpdatable(Updatable updatable)
@@ -142,10 +136,6 @@ public abstract class GameObject extends Node implements Serializable, Updatable
     public Animator getAnimator() {
         return animator;
     }
-    public float getRawWidth(){return width;}
-    public float getRawHeight(){return height;}
-    public float getScaledWidth(){return width * getScaleX();}
-    public float getScaledHeight(){return height * getScaleY();}
     public int getTextureID(){return textureID;}
     public int getVertexArraysObjectID(){return vaoID;}
 }

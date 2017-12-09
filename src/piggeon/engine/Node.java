@@ -42,6 +42,8 @@ public class Node implements Serializable
     private float rotation;
     private float scaleX = 1;
     private float scaleY = 1;
+    private float width;
+    private float height;
 
     //name used to identify nodes. can be useful when searching for a node
     private String nodeName = "";
@@ -68,7 +70,6 @@ public class Node implements Serializable
     {
         return x;
     }
-
     public void setX(float x)
     {
         this.x = x;
@@ -78,7 +79,6 @@ public class Node implements Serializable
     {
         return y;
     }
-
     public void setY(float y)
     {
         this.y = y;
@@ -88,7 +88,6 @@ public class Node implements Serializable
     {
         return rotation;
     }
-
     public void setRotationAngle(float rotation)
     {
         this.rotation = rotation;
@@ -98,7 +97,6 @@ public class Node implements Serializable
     {
         return scaleX;
     }
-
     public void setScaleX(float scaleX)
     {
         this.scaleX = scaleX;
@@ -108,17 +106,22 @@ public class Node implements Serializable
     {
         return scaleY;
     }
-
     public void setScaleY(float scaleY)
     {
         this.scaleY = scaleY;
     }
 
+    public void setRawWidth(float width){this.width = width;}
+    public void setRawHeight(float height){this.height = height;}
+    public float getRawWidth(){return width;}
+    public float getRawHeight(){return height;}
+    public float getScaledWidth(){return width * getScaleX();}
+    public float getScaledHeight(){return height * getScaleY();}
+
     public Node[] getChildrenAsArray()
     {
         return children.toArray(new Node[children.size()]);
     }
-
     public ArrayList<Node> getChildren()
     {
         return children;

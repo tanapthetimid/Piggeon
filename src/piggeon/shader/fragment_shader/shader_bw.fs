@@ -30,41 +30,17 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package test;
+#version 330 core
 
-import piggeon.engine.*;
+in vec2 pass_tex_coords;
 
-import java.util.LinkedList;
+out vec4 fragColor;
 
-public class ExampleStage extends Stage
+uniform sampler2D textureSampler;
+
+void main()
 {
-    public Camera onCreate(Node rootNode, LinkedList<Updatable> updateList)
-    {
-        for(int x = 0; x < 1; x++)
-        {
-            GameObject gogo = new ExampleMovingBoxObject();
-            gogo.setX(gogo.getScaledWidth() / 2);
-            gogo.setY(gogo.getScaledHeight() / 2);
-
-            updateList.add(gogo);
-            rootNode.attachChild(gogo);
-        }
-
-        GameObject go = new TextBoxExampleObject();
-        updateList.add(go);
-        rootNode.attachChild(go);
-
-        SoundExampleObject mo = new SoundExampleObject();
-        updateList.add(mo);
-
-        return new Camera(rootNode);
-    }
-
-    public void onLoad(Node rootNode, LinkedList<Updatable> updateList){
-        updateList.forEach((Updatable updatable) -> {
-            updatable.load();
-        });
-    }
-
-    public void onDestroy(){};
+	vec4 Color = texture(textureSampler, pass_tex_coords);
+	vec3 lum = vec3(0.299, 0.587, 0.114);
+	fragColor = vec4(vec3(dot(Color.rgb, lum)), Color.a);
 }
