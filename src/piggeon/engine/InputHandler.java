@@ -67,14 +67,20 @@ public class InputHandler
     }
 
 	//returns the mouse X location
-    public static int getMouseX()
+    public static Integer getMouseX()
     {
+        if(mouseX.get() == null){
+            return null;
+        }
         return (int)(mouseX.get()+0.5);
     }
 
 	//returns the mouse Y location
-    public static int getMouseY()
+    public static Integer getMouseY()
     {
+        if(mouseY.get() == null){
+            return null;
+        }
         return (int)(mouseY.get()+0.5);
     }
 	

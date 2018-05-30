@@ -101,7 +101,9 @@ fabric.properties
 
 .idea/*
 
-src/microtransactionsim/
+src/bullethell/
+src/rewindgame/
+src/rewindgame/
 
 Piggeon.iml
 *.sv

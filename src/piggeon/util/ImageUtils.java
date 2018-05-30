@@ -35,7 +35,6 @@ package piggeon.util;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL30.*;
 import static org.lwjgl.opengl.GL12.GL_CLAMP_TO_EDGE;
-import static org.lwjgl.stb.STBImage.*;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
@@ -57,6 +56,15 @@ import java.util.HashMap;
  */
 public class ImageUtils
 {
+    public static final int LINEAR_FILTER = GL_LINEAR;
+    public static final int NEAREST_FILTER = GL_NEAREST;
+
+    private static int glSamplingFilter = GL_NEAREST;
+
+    public static void setGlSamplingFilter(int samplingFilter){
+        glSamplingFilter = samplingFilter;
+    }
+
 	//HashMap for caching texture ID -- load a texture only once
 	private static HashMap<String, ImageInfo> loadedTextures = new HashMap<>();
 
@@ -106,9 +114,9 @@ public class ImageUtils
         /*sets texture sampling filter for scaling images*/
 
         /*scale down filter*/
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, glSamplingFilter);
         /*scale up filter*/
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, glSamplingFilter);
 
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);

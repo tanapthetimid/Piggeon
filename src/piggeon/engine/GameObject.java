@@ -39,10 +39,20 @@ import java.util.ArrayList;
 
 public abstract class GameObject extends Node implements Serializable, Updatable
 {
+    private int objectID = 0;
     private int textureID;
     private int vaoID;
     private ArrayList<Updatable> goUpdatables = new ArrayList<>();
+    private ArrayList<Updatable> flagRemoveUpdatables = new ArrayList<>();
     private Animator animator = null;
+
+    public void setObjectID(int objectID){
+        this.objectID = objectID;
+    }
+
+    public int getObjectID(){
+        return objectID;
+    }
 
     /**
      * load method that should be called in onLoad() in the Stage
@@ -69,6 +79,12 @@ public abstract class GameObject extends Node implements Serializable, Updatable
         goUpdatables.forEach( (Updatable updatable) -> {
             updatable.update(stage);
         });
+
+        flagRemoveUpdatables.forEach(updatable -> {
+            goUpdatables.remove(updatable);
+        });
+
+        flagRemoveUpdatables.clear();
 
         if(animator != null)
         {
@@ -99,6 +115,7 @@ public abstract class GameObject extends Node implements Serializable, Updatable
     {
         goUpdatables.remove(updatable);
     }
+    public void flagRemoveUpdatable(Updatable updatable) {flagRemoveUpdatables.add(updatable);}
 
     //binds an Animator to this GameObject
     public void setAnimator(Animator animator) {

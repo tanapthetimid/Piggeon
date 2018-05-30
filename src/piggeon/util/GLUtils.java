@@ -46,7 +46,7 @@ import static org.lwjgl.opengl.GL11.*;
  */
 public class GLUtils
 {
-    //cache vertex array objects of the same GameObjects
+    //cache vertex array objects of the same gameobjects
     private static HashMap<Integer, Integer> vaoCache = new HashMap<>();
 
     public static int createVertexArrays(ImageInfo imageInfo)

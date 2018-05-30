@@ -131,4 +131,8 @@ public class Node implements Serializable
     {
         children.add(child);
     }
+
+    public void removeChild(Node child){
+        children.remove(child);
+    }
 }
