@@ -43,7 +43,6 @@ public abstract class GameObject extends Node implements Serializable, Updatable
     private int textureID;
     private int vaoID;
     private ArrayList<Updatable> goUpdatables = new ArrayList<>();
-    private ArrayList<Updatable> flagRemoveUpdatables = new ArrayList<>();
     private Animator animator = null;
 
     public void setObjectID(int objectID){
@@ -76,15 +75,10 @@ public abstract class GameObject extends Node implements Serializable, Updatable
     public void update(Stage stage)
     {
 
-        goUpdatables.forEach( (Updatable updatable) -> {
-            updatable.update(stage);
-        });
-
-        flagRemoveUpdatables.forEach(updatable -> {
-            goUpdatables.remove(updatable);
-        });
-
-        flagRemoveUpdatables.clear();
+        Object[] goUpArray = goUpdatables.toArray();
+        for(Object updatable: goUpArray){
+            ((Updatable)updatable).update(stage);
+        }
 
         if(animator != null)
         {
@@ -115,7 +109,6 @@ public abstract class GameObject extends Node implements Serializable, Updatable
     {
         goUpdatables.remove(updatable);
     }
-    public void flagRemoveUpdatable(Updatable updatable) {flagRemoveUpdatables.add(updatable);}
 
     //binds an Animator to this GameObject
     public void setAnimator(Animator animator) {
